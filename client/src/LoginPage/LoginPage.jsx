@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import { Menu, Segment, Button, Header, Image, Modal, Form } from 'semantic-ui-react'
 import { userActions } from '../_actions';
 
 class LoginPage extends React.Component {
@@ -14,7 +14,8 @@ class LoginPage extends React.Component {
         this.state = {
             username: '',
             password: '',
-            submitted: false
+            submitted: false,
+            activeItem: 'Home'
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -37,41 +38,58 @@ class LoginPage extends React.Component {
         }
     }
 
+    handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
     render() {
         const { loggingIn } = this.props;
-        const { username, password, submitted } = this.state;
+        const { username, password, submitted, activeItem} = this.state;
         return (
-            <div class="ui grid">
-            <div class="four wide column"></div>
-            <div class="six wide column">
-                <div class="ui segment">
-                <h2>Login</h2>
-                <form class="ui form" name="form" onSubmit={this.handleSubmit}>
-                    <div class={'field' + (submitted && !username ? ' error' : '')}>
-                        <label htmlFor="username">Username</label>
-                        <input type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />
-                        {submitted && !username &&
-                            <div className="help-block">Username is required</div>
-                        }
-                    </div>
-                    <div class={'field' + (submitted && !password ? ' error' : '')}>
-                        <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
-                        {submitted && !password &&
-                            <div className="help-block">Password is required</div>
-                        }
-                    </div>
-                    <div class="field">
-                        <button className="btn btn-primary">Login</button>
-                        {loggingIn &&
-                            <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                        }
-                        <Link to="/register" className="btn btn-link">Register</Link>
-                    </div>
-                </form>
-                </div>
-            </div>
-            <div class="four wide column"></div>
+            <div>
+                <Menu inverted pointing>
+                <Menu.Item name='Home' active={activeItem === 'Home'} onClick={this.handleItemClick} />
+                <Menu.Item
+                    name='Games'
+                    active={activeItem === 'Games'}
+                    onClick={this.handleItemClick}
+                />
+                <Menu.Item
+                    name='Friends'
+                    active={activeItem === 'Friends'}
+                    onClick={this.handleItemClick}
+                />
+                <Menu.Menu position='right'>
+                    <Modal size={'mini'} trigger={<Button secondary>Login</Button>}>
+                        <Modal.Header>Login</Modal.Header>
+                        <Modal.Content>
+                        <Modal.Description>
+                        <Form onSubmit={this.handleSubmit}>
+                            <Form.Field>
+                                <label htmlFor="username">Username</label>
+                                <input type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />
+                                {submitted && !username &&
+                                    <div className="help-block">Username is required</div>
+                                }
+                            </Form.Field>
+                            <Form.Field>
+                                <label htmlFor="password">Password</label>
+                                <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
+                                {submitted && !password &&
+                                    <div className="help-block">Password is required</div>
+                                }
+                            </Form.Field>
+                                <Button basic loading={loggingIn ? true : false}>
+                                    Login
+                                </Button>
+                                <Link to="/register">Register</Link>
+                        </Form>
+                        </Modal.Description>
+                        </Modal.Content>
+                    </Modal>
+                </Menu.Menu>
+                </Menu>
+                <Segment>
+                <img src='/images/wireframe/paragraph.png' />
+                </Segment>
             </div>
         );
     }
