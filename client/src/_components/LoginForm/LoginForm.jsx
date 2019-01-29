@@ -49,7 +49,7 @@ class LoginForm extends Component {
                     <Modal.Content>
                     <Modal.Description>
                     {msg &&
-                        <Message color='red'>{msg}</Message>}
+                        <Message color={msg=='Registration successful' ? 'green' : 'red'}>{msg}</Message>}
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Field>
                             <label htmlFor="username">Username</label>
