@@ -6,9 +6,10 @@ import { MenuBar } from '../_components/MenuBar'
 
 class LoginPage extends React.Component {  
     render() {
+        const { msg } = this.props;
         return (
             <div> 
-                <MenuBar value={false} />
+                <MenuBar value={false} msg={msg}/>
             </div>
         );
     }

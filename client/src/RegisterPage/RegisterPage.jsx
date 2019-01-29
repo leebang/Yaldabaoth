@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userActions } from '../_actions';
-import { Segment, Grid, Form, Button} from 'semantic-ui-react';
+import { Segment, Grid, Form, Button, Message} from 'semantic-ui-react';
 import {Helmet} from 'react-helmet';
 
 
@@ -48,7 +48,7 @@ class RegisterPage extends React.Component {
     }
 
     render() {
-        const { registering  } = this.props;
+        const { registering, msg } = this.props;
         const { user, submitted } = this.state;
         return (
             <div>
@@ -59,6 +59,8 @@ class RegisterPage extends React.Component {
             <Grid.Row></Grid.Row>
                 <Grid.Column>
                     <Segment inverted color='black'>
+                        {msg &&
+                        <Message color='red'>{msg}</Message>}
                         <h1>Register</h1>
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Field>

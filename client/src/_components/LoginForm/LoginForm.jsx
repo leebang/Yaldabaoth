@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Modal, Form } from 'semantic-ui-react'
+import { Button, Modal, Form, Message } from 'semantic-ui-react'
 import { userActions } from '../../_actions';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -40,7 +40,7 @@ class LoginForm extends Component {
 
 
     render() {
-        const { loggingIn } = this.props;
+        const { loggingIn, msg } = this.props;
         const { username, password, submitted} = this.state;
         return (
             <div>
@@ -48,6 +48,8 @@ class LoginForm extends Component {
                     <Modal.Header>Welcome!</Modal.Header>
                     <Modal.Content>
                     <Modal.Description>
+                    {msg &&
+                        <Message color='red'>{msg}</Message>}
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Field>
                             <label htmlFor="username">Username</label>

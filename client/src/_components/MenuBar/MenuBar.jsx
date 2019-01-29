@@ -16,6 +16,7 @@ class MenuBar extends Component {
 
     render() {
         const { activeItem } = this.state;
+        const { value, msg } = this.props; //value=true login value=false not login
         return (
             <div>
                 <Menu inverted pointing>
@@ -35,7 +36,7 @@ class MenuBar extends Component {
                         onClick={this.handleItemClick}
                     />
                     <Menu.Menu position='right'>
-                        {this.props.value ? <UserDropdown /> : <LoginForm />}
+                        {value ? <UserDropdown /> : <LoginForm msg={msg}/>}
                     </Menu.Menu>
                 </Menu>
             </div>
