@@ -1,13 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userActions } from '../_actions';
 import { MenuBar } from '../_components/MenuBar'
 
+
 class LoginPage extends React.Component {  
     render() {
         return (
-            <div>   
+            <div> 
+                <MenuBar value={false} />
             </div>
         );
     }
@@ -16,4 +17,4 @@ class LoginPage extends React.Component {
 
 
 
-export default LoginPage; 
+export { LoginPage as LoginPage }; 
