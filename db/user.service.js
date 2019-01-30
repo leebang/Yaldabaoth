@@ -6,11 +6,13 @@ const User = db.User;
 
 module.exports = {
     authenticate,
-    getAll,
+    getAllUser,
+    getAllGamesById,
+    getAllFriendsById,
     getById,
     create,
     update,
-    delete: _delete
+    deleteUser: _delete
 };
 
 async function authenticate({ username, password }) {
@@ -25,8 +27,16 @@ async function authenticate({ username, password }) {
     }
 }
 
-async function getAll() {
-    return await User.find().select('-hash');
+async function getAllUser() {
+    return await User.find().select('-hash -gamesList -friendsList');
+}
+
+async function getAllGamesById(id) {
+    return await User.findById(id).select('gamesList');
+}
+
+async function getAllFriendsById(id) {
+    return await User.findById(id).select('friendsList');
 }
 
 async function getById(id) {

@@ -5,8 +5,10 @@ const userService = require('./user.service');
 // routes
 router.post('/authenticate', authenticate);
 router.post('/register', register);
-router.get('/', getAll);
+router.get('/allusers', getAllUser);
 router.get('/current', getCurrent);
+router.get('/:id/allgames', getAllGamesById);
+router.get('/:id/allfriends', getAllFriendsById);
 router.get('/:id', getById);
 router.put('/:id', update);
 router.delete('/:id', _delete);
@@ -25,8 +27,8 @@ function register(req, res, next) {
         .catch(err => next(err));
 }
 
-function getAll(req, res, next) {
-    userService.getAll()
+function getAllUser(req, res, next) {
+    userService.getAllUser()
         .then(users => res.json(users))
         .catch(err => next(err));
 }
@@ -39,6 +41,18 @@ function getCurrent(req, res, next) {
 
 function getById(req, res, next) {
     userService.getById(req.params.id)
+        .then(user => user ? res.json(user) : res.sendStatus(404))
+        .catch(err => next(err));
+}
+
+function getAllGamesById(req, res, next) {
+    userService.getAllGamesById(req.params.id)
+        .then(user => user ? res.json(user) : res.sendStatus(404))
+        .catch(err => next(err));
+}
+
+function getAllFriendsById(req, res, next) {
+    userService.getAllFriendsById(req.params.id)
         .then(user => user ? res.json(user) : res.sendStatus(404))
         .catch(err => next(err));
 }

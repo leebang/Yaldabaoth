@@ -5,7 +5,9 @@ export const userService = {
     login,
     logout,
     register,
-    getAll,
+    getAllUser,
+    getAllGamesById,
+    getAllFriendsById,
     getById,
     update,
     delete: _delete
@@ -33,13 +35,13 @@ function logout() {
     localStorage.removeItem('user');
 }
 
-function getAll() {
+function getAllUser() {
     const requestOptions = {
         method: 'GET',
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/users/allusers`, requestOptions).then(handleResponse);
 }
 
 function getById(id) {
@@ -49,6 +51,24 @@ function getById(id) {
     };
 
     return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
+}
+
+function getAllGamesById(id) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    return fetch(`${config.apiUrl}/users/${id}/allgames`, requestOptions).then(handleResponse);
+}
+
+function getAllFriendsById(id) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    return fetch(`${config.apiUrl}/users/${id}/allfriends`, requestOptions).then(handleResponse);
 }
 
 function register(user) {
