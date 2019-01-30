@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    gamename: { type: String, unique: true },
-    playtime: { type: String },
-    img_icon_url: { type: String },
-    img_logo_url: { type: String },
-    
+    gameName: { type: String, unique: true },
+    playTime: { type: String },
+    imgIconUrl: { type: String },
+    imgLogiUrl: { type: String },
+    userList: { type: [String] },
 });
 
 schema.set('toJSON', { virtuals: true });

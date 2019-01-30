@@ -6,21 +6,26 @@ module.exports = {
     getById,
     create,
     update,
+    getAllUserByGame,
     delete: _delete
 };
 
 async function getAll() {
-    return await Game.find().select('-_id');
+    return await Game.find().select('-id');
+}
+
+async function getAllUserByGame() {
+    return await Game.findById(id).select('userList');
 }
 
 async function getById(id) {
-    return await Game.findById(id).select('-_id');
+    return await Game.findById(id).select('-id');
 }
 
 async function create(Param) {
     // validate
-    if (await Game.findOne({ gamename: Param.gamename })) {
-        throw 'Game called "' + Param.gamename + '" is already here';
+    if (await Game.findOne({ gameName: Param.gameName })) {
+        throw 'Game called "' + Param.gameName + '" is already exist';
     }
     const game = new Game(Param);
     // save user
@@ -32,8 +37,8 @@ async function update(id, Param) {
 
     // validate
     if (!game) throw 'No such game';
-    if (game.gamename !== Param.gamename && await Game.findOne({ gamename: Param.gamename })) {
-        throw 'Game called "' + Param.gamename + '" is already here';
+    if (game.gameName !== Param.gameName && await Game.findOne({ gameName: Param.gameName })) {
+        throw 'Game called "' + Param.gameName + '" is already exist';
     }
 
 
