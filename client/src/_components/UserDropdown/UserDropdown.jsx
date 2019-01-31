@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Dropdown, Menu, Button } from 'semantic-ui-react';
+import { Dropdown, Icon, Button } from 'semantic-ui-react';
 
 
 class UserDropdown extends Component {  
     render() {
+        const trigger = (
+            <span>
+              <Icon name='user' /> Hello, {JSON.parse(localStorage.getItem('user')).username}
+            </span>
+          )
         return (
-            <div> 
-                <Dropdown text={JSON.parse(localStorage.getItem('user')).username} pointing className='link item' >
+            <div>
+                <Icon name='user outline' />
+                <Dropdown trigger={trigger} pointing className='link item' >
                     <Dropdown.Menu>
                         <Dropdown.Item>Profile</Dropdown.Item>
                         <Dropdown.Item>

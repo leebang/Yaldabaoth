@@ -44,7 +44,7 @@ class LoginForm extends Component {
         const { username, password, submitted} = this.state;
         return (
             <div>
-                <Modal size={'mini'} trigger={<Button secondary>Login or Sign up</Button>}>
+                <Modal size={'mini'} trigger={<Button secondary size='big'>Login or Sign up</Button>}>
                     <Modal.Header>Welcome!</Modal.Header>
                     <Modal.Content>
                     <Modal.Description>
