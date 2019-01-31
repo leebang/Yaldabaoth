@@ -4,6 +4,7 @@ import { LoginForm } from '../LoginForm'
 import { UserDropdown } from '../UserDropdown'
 
 
+
 class MenuBar extends Component {
     constructor(props) {
         super(props);
@@ -19,7 +20,7 @@ class MenuBar extends Component {
         const { value, msg } = this.props; //value=true login value=false not login
         return (
             <div>
-                <Menu inverted pointing>
+                <Menu inverted pointing stackable>
                     <Menu.Item 
                         name='Home' 
                         active={activeItem === 'Home'} 

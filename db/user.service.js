@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const db = require('_helpers/db');
 const User = db.User;
 const gameService = require('./game.service');
+const Game = db.Game;
 
 module.exports = {
     authenticate,
@@ -68,18 +69,14 @@ async function create(userParam) {
             .then(function (repos) {
                 var sending_array = repos.response.games.map(function(g){
                     return {url:"https://store.steampowered.com/agecheck/app/"+g.appid,
+                    platform:['Steam'],
                     gameName:g.name,
                     playTime:g.playtime_forever,
                     imgIconUrl:g.img_icon_url,
                     imgLogiUrl:g.img_logo_url,
                     userList:[]}
                 });
-                var i = 0;
-                while (i<sending_array.length){
-                    gameService.create(sending_array[i])
-                    .then(() => {})
-                    .catch(err => next(err));
-                }
+                
             })
             .catch(function (err) {
                 throw 'Steam ID is not valid';
