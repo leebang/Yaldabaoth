@@ -1,8 +1,10 @@
 ﻿const config = require('config.json');
+const request = require('request-promise');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const db = require('_helpers/db');
 const User = db.User;
+const gameService = require('./game.service');
 
 module.exports = {
     authenticate,
@@ -56,6 +58,33 @@ async function create(userParam) {
         user.hash = bcrypt.hashSync(userParam.password, 10);
     }
 
+    if (userParam.steamAccount) {
+        var options = {
+            method: 'GET',
+            uri: "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=479387AA962E63341F51611AD7D193E3&include_appinfo=1&steamid="+userParam.steamAccount+"&format=json",
+            json: true // Automatically parses the JSON string in the response
+        };
+        request(options)
+            .then(function (repos) {
+                var sending_array = repos.response.games.map(function(g){
+                    return {url:"https://store.steampowered.com/agecheck/app/"+g.appid,
+                    gameName:g.name,
+                    playTime:g.playtime_forever,
+                    imgIconUrl:g.img_icon_url,
+                    imgLogiUrl:g.img_logo_url,
+                    userList:[]}
+                });
+                var i = 0;
+                while (i<sending_array.length){
+                    gameService.create(sending_array[i])
+                    .then(() => {})
+                    .catch(err => next(err));
+                }
+            })
+            .catch(function (err) {
+                throw 'Steam ID is not valid';
+            });
+    }
     // save user
     await user.save();
 }

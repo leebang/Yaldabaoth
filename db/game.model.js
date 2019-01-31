@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    gameName: { type: String, unique: true },
+    url: { type: String },
+    gameName: { type: String },
     playTime: { type: String },
     imgIconUrl: { type: String },
     imgLogiUrl: { type: String },
