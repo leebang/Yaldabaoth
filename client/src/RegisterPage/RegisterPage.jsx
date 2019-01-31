@@ -13,7 +13,7 @@ class RegisterPage extends React.Component {
 
         this.state = {
             user: {
-                nickname: '',
+                nickName: '',
                 username: '',
                 password: '',
                 steamAccount: ''
@@ -42,7 +42,7 @@ class RegisterPage extends React.Component {
         this.setState({ submitted: true });
         const { user } = this.state;
         const { dispatch } = this.props;
-        if (user.nickname && user.username && user.password && user.steamAccount) {
+        if (user.nickName && user.username && user.password && user.steamAccount) {
             dispatch(userActions.register(user));
         }
     }
@@ -64,9 +64,9 @@ class RegisterPage extends React.Component {
                         <h1>Register</h1>
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Field>
-                                <label htmlFor="nickname" style={{color:'white'}}>Nickname</label>
-                                <input type="text" className="form-control" name="nickname" value={user.nickname} onChange={this.handleChange} />
-                                {submitted && !user.nickname &&
+                                <label htmlFor="nickName" style={{color:'white'}}>Nickname</label>
+                                <input type="text" className="form-control" name="nickName" value={user.nickname} onChange={this.handleChange} />
+                                {submitted && !user.nickName &&
                                     <div className="help-block">Nickname is required</div>
                                 }
                             </Form.Field>
