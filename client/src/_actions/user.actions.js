@@ -84,7 +84,7 @@ function getOneUser(id) {
 
         userService.getById(id)
             .then(
-                user => dispatch(success(users)),
+                user => dispatch(success(user)),
                 error => dispatch(failure(id, error.toString()))
             );
     };

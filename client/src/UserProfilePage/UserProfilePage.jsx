@@ -12,14 +12,14 @@ class UserProfilePage extends Component {
         super(props);
 
         this.state = {
-            user: {
-                nickname: '',
-                username: '',
-                password: '',
-                steamAccount: '',
-                description: '',
-                contactInfo: ''
-            },
+            // user: {
+            //     nickname: '',
+            //     username: '',
+            //     password: '',
+            //     steamAccount: '',
+            //     description: '',
+            //     contactInfo: ''
+            // },
             submitted: false
         };
 
@@ -27,14 +27,20 @@ class UserProfilePage extends Component {
         // this.handleSubmit = this.handleSubmit.bind(this);
     }
     
+    componentDidMount(id) {
+        // const { user } = this.props;
+        this.props.dispatch(userActions.getOneUser(id));
+    }
+
+
     render() {
         return (
         <div>
             <Segment>
-            <Grid divided='vertically' celled>
+            <Grid divided='vertically'>
 
                     <Grid.Row columns={2}>
-                        <Grid.Column width={5} centered>
+                        <Grid.Column width={5} centered={"true"}>
                             <Card centered>
                                 <Image src='../../../samples/sampleHead.png' />
                                 <Card.Content>
@@ -98,5 +104,12 @@ class UserProfilePage extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    const { user } = state;
+    return {
+        user
+    };
+}
 
-export { UserProfilePage as UserProfilePage }; 
+const connectedUserProfilePage = connect(mapStateToProps)(UserProfilePage);
+export { connectedUserProfilePage as UserProfilePage };
