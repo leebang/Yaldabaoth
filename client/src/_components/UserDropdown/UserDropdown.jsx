@@ -15,7 +15,7 @@ class UserDropdown extends Component {
                 <Icon name='user outline' />
                 <Dropdown trigger={trigger} pointing className='link item' >
                     <Dropdown.Menu>
-                        <Dropdown.Item>Profile</Dropdown.Item>
+                        <Dropdown.Item as={ Link } to='/profile'>Profile</Dropdown.Item>
                         <Dropdown.Item>
                         <Button secondary>
                             <Link to="/login" style={{color:'white'}}>Logout</Link>
