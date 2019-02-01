@@ -13,7 +13,7 @@ class UserProfilePage extends Component {
 
         this.state = {
             // user: {
-            //     nickname: '',
+            //     nickName: '',
             //     username: '',
             //     password: '',
             //     steamAccount: '',

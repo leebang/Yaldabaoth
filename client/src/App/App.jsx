@@ -9,6 +9,7 @@ import { HomePage } from '../HomePage';
 import { LoginPage } from '../LoginPage';
 import { RegisterPage } from '../RegisterPage';
 import { UserProfilePage } from '../UserProfilePage';
+import { MenuBar } from '../_components/MenuBar'
 
 class App extends React.Component {
     constructor(props) {
@@ -28,7 +29,8 @@ class App extends React.Component {
             <div>
                 <Router history={history}>
                     <div>
-                        <PrivateRoute exact path="/" component={HomePage} />
+                        <MenuBar value={localStorage.getItem('user')? true:false} msg={alert.message} />
+                        <PrivateRoute exact path="/" component={HomePage} msg={alert.message} />
                         <Route path="/login" render={()=><LoginPage msg={alert.message}/>}/>
                         <Route path="/register" render={()=><RegisterPage msg={alert.message}/>}/>
                         <Route path="/profile" render={()=><UserProfilePage/>}/>

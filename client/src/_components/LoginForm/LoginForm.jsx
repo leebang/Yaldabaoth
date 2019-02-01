@@ -16,6 +16,7 @@ class LoginForm extends Component {
             username: '',
             password: '',
             submitted: false,
+            modalOpen: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -38,13 +39,21 @@ class LoginForm extends Component {
         }
     }
 
+    handleOpen = () => this.setState({ modalOpen: true })
+
+    handleClose = () => this.setState({ modalOpen: false })
+
 
     render() {
         const { loggingIn, msg } = this.props;
         const { username, password, submitted} = this.state;
         return (
             <div>
-                <Modal size={'mini'} trigger={<Button secondary size='big'>Login or Sign up</Button>}>
+                <p></p>
+                <Modal size={'mini'} trigger={<Button secondary size='big' 
+                onClick={this.handleOpen}>Login or Sign up</Button>} 
+                open={this.state.modalOpen}
+                onClose={this.handleClose}>
                     <Modal.Header>Welcome!</Modal.Header>
                     <Modal.Content>
                     <Modal.Description>
@@ -66,9 +75,9 @@ class LoginForm extends Component {
                             }
                         </Form.Field>
                             <Button.Group>
-                                <Button color={'blue'} loading={loggingIn ? true : false}>Login</Button>
+                                <Button color={'blue'} loading={loggingIn ? true : false} >Login</Button>
                                 <Button.Or />
-                                <Button color={'red'} as={Link} to="/register">Register</Button>
+                                <Button color={'red'} as={Link} to="/register" onClick={this.handleClose}>Register</Button>
                             </Button.Group>
                     </Form>
                     </Modal.Description>

@@ -9,7 +9,6 @@ class LoginPage extends React.Component {
         const { msg } = this.props;
         return (
             <div> 
-                <MenuBar value={false} msg={msg}/>
             </div>
         );
     }

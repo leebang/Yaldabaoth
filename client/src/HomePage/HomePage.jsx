@@ -15,10 +15,11 @@ class HomePage extends React.Component {
     }
 
     render() {
-        const { user, users } = this.props;
+        const { user, users, msg } = this.props;
         return (
             <div>
-            <MenuBar value={true} />
+            <p>{msg}</p>
+            {/* <MenuBar value={true} /> */}
             {/* <Segment>
                 <h1>Hi {user.firstName}!</h1>
                 <p>You're logged in with React!!</p>
