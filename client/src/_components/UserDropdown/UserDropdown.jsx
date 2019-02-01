@@ -17,15 +17,14 @@ class UserDropdown extends Component {
     }
 
     render() {
-        const trigger = (
-            <span>
-              <Icon name='user' /> Hello, {JSON.parse(localStorage.getItem('user')).username}
-            </span>
-          )
         return (
             <div>
                 <p></p>
-                <Dropdown trigger={trigger} pointing className='link item' >
+                <p></p>
+                <p></p>
+                <p></p>
+                <Icon name='user' />
+                <Dropdown inline text={JSON.parse(localStorage.getItem('user')).nickName} pointing='top left'>
                     <Dropdown.Menu>
                         <Dropdown.Item as={ Link } to='/profile'>Profile</Dropdown.Item>
                         <Dropdown.Item>

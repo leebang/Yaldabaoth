@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu, Icon, Image } from 'semantic-ui-react'
+import { Menu, Icon, Image, Segment } from 'semantic-ui-react'
 import { LoginForm } from '../LoginForm'
 import { UserDropdown } from '../UserDropdown'
 
@@ -19,7 +19,8 @@ class MenuBar extends Component {
         const { value, msg } = this.props; //value=true login value=false not login
         return (
             <div>
-                <Menu inverted stackable icon='labeled' size='small'>
+                <Segment inverted>
+                <Menu inverted stackable icon='labeled' size='small' secondary widths={5}>
                     <Menu.Item fitted>
                         <Image src='../../../samples/temp.png' />
                     </Menu.Item>
@@ -51,6 +52,7 @@ class MenuBar extends Component {
                         {value ? <UserDropdown /> : <LoginForm msg={msg}/>}
                     </Menu.Menu>
                 </Menu>
+                </Segment>
             </div>
         );
     }
