@@ -20,8 +20,8 @@ class MenuBar extends Component {
         return (
             <div>
                 <Menu inverted stackable icon='labeled' size='small'>
-                    <Menu.Item>
-                        <Image src='../../../samples/temp.png' size='mini' />
+                    <Menu.Item fitted>
+                        <Image src='../../../samples/temp.png' />
                     </Menu.Item>
                     <Menu.Item 
                         name='Home' 
