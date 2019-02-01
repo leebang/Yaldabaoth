@@ -54,8 +54,8 @@ class UserProfilePage extends Component {
                         </Grid.Column>
 
                     <Grid.Column width={11}>
-                    <Form>
-                        <Form.Field>
+                    <Form >
+                        <Form.Field width={6}>
                         <label>Nickname</label>
                         <input placeholder='Nickname' />
                         </Form.Field>
@@ -74,18 +74,18 @@ class UserProfilePage extends Component {
                         </Form.Field>
                         </Form.Group>
 
-                        <Form.Field>
+                        <Form.Field width={6}>
                         <label>Steam Account</label>
                         <input placeholder='Account Number' />
                         </Form.Field>
 
-                        <Form.Field>
+                        <Form.Field width={8}>
                         <label>Contact Infomation</label>
                         <input placeholder='eg. Phone' />   
                         </Form.Field>
 
-                        <Form.TextArea label='About' placeholder='Tell us more about you...' />
-                        
+                        <Form.TextArea width={8} label='About' placeholder='Tell us more about you...' />
+
                         <Button type='submit'>Submit</Button>
                     </Form>
                     </Grid.Column>

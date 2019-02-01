@@ -14,6 +14,20 @@ export function users(state = {}, action) {
       return { 
         error: action.error
       };
+
+    case userConstants.GETONE_REQUEST:
+      return {
+        loading: true
+      };
+    case userConstants.GETONE_SUCCESS:
+      return {
+        items: action.user
+      };
+    case userConstants.GETONE_FAILURE:
+      return { 
+        error: action.error
+      };
+
     case userConstants.DELETE_REQUEST:
       // add 'deleting:true' property to user being deleted
       return {
