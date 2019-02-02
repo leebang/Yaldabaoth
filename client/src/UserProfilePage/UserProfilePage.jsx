@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userActions } from '../_actions';
-import { Segment, Grid, Form, Button, Message, Card, Icon, Image } from 'semantic-ui-react';
+import { Segment, Grid, Form, Button, Message, Card, Icon, Image, Input } from 'semantic-ui-react';
 import {Helmet} from 'react-helmet';
 
 
@@ -11,27 +11,38 @@ class UserProfilePage extends Component {
     constructor(props) {
         super(props);
 
+        let theUser = JSON.parse(localStorage.getItem('user'));
+        
         this.state = {
-            // user: {
-            //     nickName: '',
-            //     username: '',
-            //     password: '',
-            //     steamAccount: '',
-            //     description: '',
-            //     contactInfo: ''
-            // },
+            user: {
+                _id: theUser._id,
+                nickName: theUser.nickName,
+                username: theUser.username,
+                password: '',
+                steamAccount: theUser.steamAccount,
+                description: theUser.description,
+                contactInfo: theUser.contactInfo,
+                createdDate: theUser.createdDate,
+                friendsList: theUser.friendsList
+            },
             submitted: false
         };
 
-        // this.handleChange = this.handleChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         // this.handleSubmit = this.handleSubmit.bind(this);
     }
-    
-    componentDidMount(id) {
-        // const { user } = this.props;
-        this.props.dispatch(userActions.getOneUser(id));
-    }
 
+    handleChange(event) {
+        const { name, value } = event.target;
+        console.log(event.target);
+        const { user } = this.state;
+        this.setState({
+            user: {
+                ...user,
+                [name]: value
+            }
+        });
+    }
 
     render() {
         return (
@@ -44,16 +55,16 @@ class UserProfilePage extends Component {
                             <Card centered>
                                 <Image src='../../../samples/sampleHead.png' />
                                 <Card.Content>
-                                <Card.Header>Matthew</Card.Header>
+                                <Card.Header> {this.state.user.nickName} </Card.Header>
                                 <Card.Meta>
-                                    <span className='date'>Joined in 2015</span>
+                                    <span className='date'>Joined in {this.state.user.createdDate.substr(0,10)}</span>
                                 </Card.Meta>
-                                <Card.Description>Matthew is a musician living in Nashville.</Card.Description>
+                                <Card.Description> {this.state.user.description} </Card.Description>
                                 </Card.Content>
                                 <Card.Content extra>
                                 <a>
                                     <Icon name='user' />
-                                    22 Friends
+                                    {this.state.user.friendsList.length}
                                 </a>
                                 </Card.Content>
                             </Card>
@@ -63,7 +74,7 @@ class UserProfilePage extends Component {
                     <Form >
                         <Form.Field width={6}>
                         <label>Nickname</label>
-                        <input placeholder='Nickname' />
+                        <Input name="nickName" value={this.state.user.nickName} onChange={this.handleChange}/>
                         </Form.Field>
                         <Form.Group>
                         <Form.Field>
@@ -82,12 +93,16 @@ class UserProfilePage extends Component {
 
                         <Form.Field width={6}>
                         <label>Steam Account</label>
-                        <input placeholder='Account Number' />
+                        <input name="steamAccount" value={this.state.user.steamAccount} onChange={this.handleChange}/>
                         </Form.Field>
 
                         <Form.Field width={8}>
                         <label>Contact Infomation</label>
-                        <input placeholder='eg. Phone' />   
+                        <input onChange={this.handleChange} name="contactInfo" 
+                            value={this.state.user.contactInfo.length==0 ? 
+                            "eg. Phone"
+                             : 
+                             this.state.user.contactInfo} />   
                         </Form.Field>
 
                         <Form.TextArea width={8} label='About' placeholder='Tell us more about you...' />
