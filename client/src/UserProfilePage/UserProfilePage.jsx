@@ -98,15 +98,20 @@ class UserProfilePage extends Component {
 
                         <Form.Field width={8}>
                         <label>Contact Infomation</label>
-                        <input onChange={this.handleChange} name="contactInfo" 
-                            value={this.state.user.contactInfo.length==0 ? 
-                            "eg. Phone"
-                             : 
-                             this.state.user.contactInfo} />   
+                        <input name="contactInfo"
+                                placeholder='Contact'
+                                value={this.state.user.contactInfo} 
+                                onChange={this.handleChange} />
                         </Form.Field>
 
-                        <Form.TextArea width={8} label='About' placeholder='Tell us more about you...' />
-
+                        <Form.TextArea width={8} 
+                        label='About'
+                        name='description'
+                        placeholder='Tell us more about you...' 
+                        value={this.state.user.description}
+                        onChange={this.handleChange}
+                        />
+            
                         <Button type='submit'>Submit</Button>
                     </Form>
                     </Grid.Column>

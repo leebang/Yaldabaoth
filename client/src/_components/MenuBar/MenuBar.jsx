@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu, Icon, Image, Segment } from 'semantic-ui-react'
+import { Menu, Icon, Image, Segment, Link } from 'semantic-ui-react'
 import { LoginForm } from '../LoginForm'
 import { UserDropdown } from '../UserDropdown'
 

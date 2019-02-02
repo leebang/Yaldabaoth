@@ -9,6 +9,7 @@ export const userActions = {
     register,
     getAllUser,
     getOneUser,
+    updateUser,
     delete: _delete
 };
 
@@ -92,6 +93,29 @@ function getOneUser(id) {
     function request(id) { return { type: userConstants.GETONE_REQUEST, id } }
     function success(id) { return { type: userConstants.GETONE_SUCCESS, id } }
     function failure(id, error) { return { type: userConstants.GETONE_FAILURE, id, error } }
+}
+
+function updateUser(user) {
+    return dispatch => {
+        // To request
+        dispatch(request(user));
+
+        userService.update(user)
+            .then(
+                user => { 
+                    dispatch(success(user));
+                    history.push('/profile');
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    // dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(user) { return { type: userConstants.UPDATE_REQUEST, user } }
+    function success(user) { return { type: userConstants.UPDATE_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.UPDATE_FAILURE, error } }
 }
 
 
