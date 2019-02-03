@@ -5,7 +5,6 @@ const bcrypt = require('bcryptjs');
 const db = require('_helpers/db');
 const User = db.User;
 const gameService = require('./game.service');
-const Game = db.Game;
 
 module.exports = {
     authenticate,
@@ -76,6 +75,15 @@ async function create(userParam) {
     }
     user.gamesList=sending_array.slice();
     await user.save();
+
+    var games_array = sending_array.map(function(g){
+        return JSON.parse(g);
+    });
+    games_array.forEach(element => {
+        gameService.create(element)
+        .then(() => {})
+        .catch(err => {});
+    });
 }
 
 async function update(id, userParam) {
