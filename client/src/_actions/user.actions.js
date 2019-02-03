@@ -95,7 +95,7 @@ function getOneUser(id) {
     function failure(id, error) { return { type: userConstants.GETONE_FAILURE, id, error } }
 }
 
-function updateUser(user) {
+function updateUser(id, user) {
     return dispatch => {
         // To request
         dispatch(request(user));

@@ -14,23 +14,18 @@ class UserProfilePage extends Component {
         let theUser = JSON.parse(localStorage.getItem('user'));
         
         this.state = {
-            user: {
-                _id: theUser._id,
-                nickName: theUser.nickName,
-                username: theUser.username,
-                password: '',
-                steamAccount: theUser.steamAccount,
-                description: theUser.description,
-                contactInfo: theUser.contactInfo,
-                createdDate: theUser.createdDate,
-                friendsList: theUser.friendsList
-            },
+            user: theUser,
             submitted: false
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    // componentDidMount(){
+    //     const { user } = this.props;
+    //     this.props.dispatch(userActions.getOneUser(user.id));
+    // }
 
     handleChange(event) {
         const { name, value } = event.target;
@@ -48,11 +43,15 @@ class UserProfilePage extends Component {
         this.setState( {submitted: true} );
         const { user } = this.state;
         const { dispatch } = this.props;
-        dispatch(userActions.updateUser(user));
+        console.log(user);
+        dispatch(userActions.updateUser(user._id, user));
+        localStorage.setItem('user', JSON.stringify(user));
     }
 
 
     render() {
+        // const { auser } = this.props;
+        // console.log(auser);
         return (
         <div>
             <Segment>
@@ -136,6 +135,7 @@ class UserProfilePage extends Component {
 
 function mapStateToProps(state) {
     const { user } = state;
+    // const { user } = user;
     return {
         user
     };

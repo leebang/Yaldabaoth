@@ -81,6 +81,7 @@ async function update(id, userParam) {
     Object.assign(user, userParam);
 
     await user.save();
+    // return user.toObject();
 }
 
 async function _delete(id) {
