@@ -6,11 +6,13 @@ const bodyParser = require('body-parser');
 const jwt = require('_helpers/jwt');
 const errorHandler = require('_helpers/error-handler');
 const path = require('path');
+const cookieParser = require('cookie-parser');
+const expressJwt = require('express-jwt');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-
+app.set('view engine', 'html');
 // use JWT auth to secure the api
 app.use(jwt());
 
@@ -21,10 +23,10 @@ app.use('/games', require('./db/games.controller'));
 // global error handler
 app.use(errorHandler);
 
-app.use(express.static(path.join(__dirname,'/dist')));
-app.get('/', function (req, res, next) {
-    res.sendFile(path.resolve('dist/index.html'));
-});
+app.use(express.static(path.join(__dirname,'client/dist')));
+app.get('/',function (req, res) {
+    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+  });
 
 // start server
 const port = process.env.PORT || 4000;
