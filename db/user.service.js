@@ -48,7 +48,7 @@ async function getById(id) {
 
 async function create(userParam) {
     if (await User.findOne({ username: userParam.username })) {
-        throw 'Game called "' + userParam.username + '" is already exist';
+        throw 'Username called "' + userParam.username + '" is already exist';
     }
     const user = new User(userParam);
     if (userParam.password) {
