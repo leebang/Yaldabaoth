@@ -8,8 +8,8 @@ const schema = new Schema({
     steamAccount: { type: String, required: true },
     gamesList: { type: [String] },
     friendsList: { type: [String] },
-    description: { type: [String] },
-    contactInfo: { type: [String] },
+    description: { type: String, default: '' },
+    contactInfo: { type: String, default: '' },
     createdDate: { type: Date, default: Date.now }
 });
 

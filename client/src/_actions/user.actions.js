@@ -91,11 +91,11 @@ function getOneUser(id) {
     };
 
     function request(id) { return { type: userConstants.GETONE_REQUEST, id } }
-    function success(id) { return { type: userConstants.GETONE_SUCCESS, id } }
+    function success(user) { return { type: userConstants.GETONE_SUCCESS, user } }
     function failure(id, error) { return { type: userConstants.GETONE_FAILURE, id, error } }
 }
 
-function updateUser(id, user) {
+function updateUser(user) {
     return dispatch => {
         // To request
         dispatch(request(user));

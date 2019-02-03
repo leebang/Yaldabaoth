@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { userActions } from '../_actions';
 import { Segment, Grid, Form, Button, Message, Card, Icon, Image, Input } from 'semantic-ui-react';
 import {Helmet} from 'react-helmet';
+import { authentication } from '../_reducers/authentication.reducer';
 
 
 class UserProfilePage extends Component { 
@@ -12,9 +13,9 @@ class UserProfilePage extends Component {
         super(props);
 
         let theUser = JSON.parse(localStorage.getItem('user'));
-        
+        this.props.dispatch(userActions.getOneUser(theUser._id));
         this.state = {
-            user: theUser,
+            user: this.props.user,
             submitted: false
         };
 
@@ -23,8 +24,8 @@ class UserProfilePage extends Component {
     }
 
     // componentDidMount(){
-    //     const { user } = this.props;
-    //     this.props.dispatch(userActions.getOneUser(user.id));
+    //     let theUser = JSON.parse(localStorage.getItem('user'));
+    //     this.props.dispatch(userActions.getOneUser(theUser._id));
     // }
 
     handleChange(event) {
@@ -44,7 +45,7 @@ class UserProfilePage extends Component {
         const { user } = this.state;
         const { dispatch } = this.props;
         console.log(user);
-        dispatch(userActions.updateUser(user._id, user));
+        dispatch(userActions.updateUser(user));
         localStorage.setItem('user', JSON.stringify(user));
     }
 
@@ -52,26 +53,27 @@ class UserProfilePage extends Component {
     render() {
         // const { auser } = this.props;
         // console.log(auser);
+        // users.items = this user
+        const { users } = this.props;
         return (
         <div>
             <Segment>
             <Grid divided='vertically'>
-
                     <Grid.Row columns={2}>
                         <Grid.Column width={5} centered={"true"}>
                             <Card centered>
                                 <Image src='../../../samples/sampleHead.png' />
                                 <Card.Content>
-                                <Card.Header> {this.state.user.nickName} </Card.Header>
+                                <Card.Header> {users.items ? users.items.nickName:''} </Card.Header>
                                 <Card.Meta>
-                                    <span className='date'>Joined in {this.state.user.createdDate.substr(0,10)}</span>
+                                    <span className='date'>Joined in {users.items ? users.items.createdDate.substr(0,10):''}</span>
                                 </Card.Meta>
-                                <Card.Description> {this.state.user.description} </Card.Description>
+                                <Card.Description> {users.items ? users.items.description:''} </Card.Description>
                                 </Card.Content>
                                 <Card.Content extra>
                                 <a>
                                     <Icon name='user' />
-                                    {this.state.user.friendsList.length}
+                                    {users.items ? users.items.friendsList.length:''}
                                 </a>
                                 </Card.Content>
                             </Card>
@@ -81,7 +83,7 @@ class UserProfilePage extends Component {
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Field width={6}>
                         <label>Nickname</label>
-                        <Input name="nickName" value={this.state.user.nickName} onChange={this.handleChange}/>
+                        <Input name="nickName" value={users.items ? users.items.nickName : ''} onChange={this.handleChange}/>
                         </Form.Field>
                         
                         <Form.Group>
@@ -101,14 +103,14 @@ class UserProfilePage extends Component {
 
                         <Form.Field width={6}>
                         <label>Steam Account</label>
-                        <input name="steamAccount" value={this.state.user.steamAccount} onChange={this.handleChange}/>
+                        <input name="steamAccount" value={users.items ? users.items.steamAccount : ''} onChange={this.handleChange}/>
                         </Form.Field>
 
                         <Form.Field width={8}>
                         <label>Contact Infomation</label>
                         <input name="contactInfo"
                                 placeholder='Contact'
-                                value={this.state.user.contactInfo} 
+                                value={users.items ? users.items.contactInfo : ''} 
                                 onChange={this.handleChange} />
                         </Form.Field>
 
@@ -116,7 +118,7 @@ class UserProfilePage extends Component {
                         <label>About</label>
                             <input name='description'
                                    placeholder='Tell us more about you...' 
-                                   value={this.state.user.description}
+                                   value={users.items ? users.items.description : ''}
                                    onChange={this.handleChange}
                                         />
                         </Form.Field>
@@ -134,10 +136,10 @@ class UserProfilePage extends Component {
 }
 
 function mapStateToProps(state) {
-    const { user } = state;
+    const { users } = state;
     // const { user } = user;
     return {
-        user
+        users
     };
 }
 
