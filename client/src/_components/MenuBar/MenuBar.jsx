@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Menu, Icon, Image, Segment, Link } from 'semantic-ui-react'
+import { Menu, Icon, Image, Segment } from 'semantic-ui-react'
 import { LoginForm } from '../LoginForm'
 import { UserDropdown } from '../UserDropdown'
+import { Link } from 'react-router-dom';
 
 
 class MenuBar extends Component {
@@ -23,14 +24,15 @@ class MenuBar extends Component {
         return (
             <div>
                 <Segment inverted>
-                <Menu inverted stackable icon='labeled' size='small' secondary widths={5}>
-                    <Menu.Item fitted>
-                        <Image src='../../../samples/temp.png' />
+                <Menu inverted stackable icon='labeled' size='small' secondary widths={6}>
+                    <Menu.Item fitted >
+                        <Image src='../../../samples/temp.png' href="/" />
                     </Menu.Item>
                     <Menu.Item 
                         name='Home' 
                         active={activeItem === 'Home'} 
-                        onClick={this.handleItemClick} 
+                        onClick={this.handleItemClick}
+                        as={Link} to="/"
                     >
                     <Icon name='home' />
                     Home
@@ -38,7 +40,8 @@ class MenuBar extends Component {
                     <Menu.Item
                         name='Games'
                         active={activeItem === 'Games'}
-                        onClick={this.handleItemClick}
+                        onClick={this.handleItemClick} 
+                        as={Link} to="/"
                     >
                     <Icon name='gamepad' />
                     Games
@@ -47,9 +50,19 @@ class MenuBar extends Component {
                         name='Friends'
                         active={activeItem === 'Friends'}
                         onClick={this.handleItemClick}
+                        as={Link} to="/"
                     >
                     <Icon name='users' />
                     Friends
+                    </Menu.Item>
+                    <Menu.Item
+                        name='Radar'
+                        active={activeItem === 'Radar'}
+                        onClick={this.handleItemClick}
+                        as={Link} to="/"
+                    >
+                    <Icon name='map marker alternate' />
+                    Radar
                     </Menu.Item>
                     <Menu.Menu position='right'>
                         {value ? <UserDropdown /> : <LoginForm msg={msg}/>}

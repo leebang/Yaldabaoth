@@ -5,7 +5,6 @@ const bcrypt = require('bcryptjs');
 const db = require('_helpers/db');
 const User = db.User;
 const gameService = require('./game.service');
-const Game = db.Game;
 
 module.exports = {
     authenticate,
@@ -48,7 +47,7 @@ async function getById(id) {
 
 async function create(userParam) {
     if (await User.findOne({ username: userParam.username })) {
-        throw 'Game called "' + userParam.username + '" is already exist';
+        throw 'Username called "' + userParam.username + '" is already exist';
     }
     const user = new User(userParam);
     if (userParam.password) {
@@ -76,6 +75,15 @@ async function create(userParam) {
     }
     user.gamesList=sending_array.slice();
     await user.save();
+
+    var games_array = sending_array.map(function(g){
+        return JSON.parse(g);
+    });
+    games_array.forEach(element => {
+        gameService.create(element)
+        .then(() => {})
+        .catch(err => {});
+    });
 }
 
 async function update(id, userParam) {

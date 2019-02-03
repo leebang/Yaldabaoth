@@ -8,18 +8,25 @@
         "url": "https://github.com/derekli19951103/Yaldabaoth.git"
     },
     "scripts": {
-        "start": "node ./server.js",
-        "start-dev": "nodemon ./server.js"
+        "client-install": "npm install --prefix client",
+        "start": "node server.js",
+        "server": "nodemon server.js",
+        "client": "npm start --prefix client",
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --dev --prefix client && npm run build --prefix client"
     },
     "dependencies": {
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.18.3",
+        "concurrently": "^4.1.0",
+        "cookie-parser": "^1.4.3",
         "cors": "^2.8.4",
         "express": "^4.16.3",
         "express-jwt": "^5.3.1",
         "jsonwebtoken": "^8.2.2",
         "mongodb": "^3.0.10",
         "mongoose": "^5.1.4",
+        "path": "^0.12.7",
         "request": "^2.88.0",
         "request-promise": "^4.2.2",
         "rootpath": "^0.1.2"

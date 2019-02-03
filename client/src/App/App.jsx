@@ -10,6 +10,7 @@ import { LoginPage } from '../LoginPage';
 import { RegisterPage } from '../RegisterPage';
 import { UserProfilePage } from '../UserProfilePage';
 import { MenuBar } from '../_components/MenuBar'
+import { Segment } from 'semantic-ui-react';
 
 class App extends React.Component {
     constructor(props) {
@@ -32,17 +33,17 @@ class App extends React.Component {
 
     render() {
         const { alert } = this.props;
+        const { activeItem } = this.state;
         return (
             <div>
                 <Router history={history}>
-                    <div>
+                    <Segment inverted>
                         <MenuBar value={localStorage.getItem('user')? true:false} msg={alert.message} onMenuBar={this.handleTag}/>
-                        <p>{this.state.activeItem}</p>
-                        <PrivateRoute exact path="/" component={HomePage} msg={alert.message} />
-                        <Route path="/login" render={()=><LoginPage msg={alert.message}/>}/>
+                        <PrivateRoute exact path="/" component={HomePage} msg={alert.message} menu={activeItem}/>
+                        <Route path="/login" render={()=><LoginPage msg={alert.message} menu={activeItem} />}/>
                         <Route path="/register" render={()=><RegisterPage msg={alert.message}/>}/>
                         <Route path="/profile" render={()=><UserProfilePage/>}/>
-                    </div>
+                    </Segment>
                 </Router>  
             </div>  
         );

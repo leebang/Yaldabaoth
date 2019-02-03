@@ -5,11 +5,14 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const jwt = require('_helpers/jwt');
 const errorHandler = require('_helpers/error-handler');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const expressJwt = require('express-jwt');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-
+app.set('view engine', 'html');
 // use JWT auth to secure the api
 app.use(jwt());
 
@@ -20,8 +23,13 @@ app.use('/games', require('./db/games.controller'));
 // global error handler
 app.use(errorHandler);
 
+app.use(express.static(path.join(__dirname,'client/build')));
+app.get('/',function (req, res) {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  });
+
 // start server
-const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 4000;
+const port = process.env.PORT || 4000;
 const server = app.listen(port, function () {
     console.log('Server listening on port ' + port);
 });

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { userActions } from '../_actions';
 import { Segment, Grid, Form, Button, Message} from 'semantic-ui-react';
-import {Helmet} from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
 
 class RegisterPage extends React.Component {
@@ -53,7 +53,7 @@ class RegisterPage extends React.Component {
         return (
             <div>
             <Helmet>
-                <style>{'body { background-color: black; }'}</style>
+                <style>{'body { background-color: rgb(27,28,29); }'}</style>
             </Helmet>
             <Grid centered columns={2}>
             <Grid.Row></Grid.Row>
