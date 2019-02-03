@@ -20,7 +20,14 @@ class App extends React.Component {
             // clear alert on location change
             dispatch(alertActions.clear());
         });
+        this.state = {     
+            activeItem: 'Home'
+        }; 
 
+    }
+
+    handleTag = (activeItem) => {
+        this.setState({activeItem: activeItem});
     }
 
     render() {
@@ -29,7 +36,8 @@ class App extends React.Component {
             <div>
                 <Router history={history}>
                     <div>
-                        <MenuBar value={localStorage.getItem('user')? true:false} msg={alert.message} />
+                        <MenuBar value={localStorage.getItem('user')? true:false} msg={alert.message} onMenuBar={this.handleTag}/>
+                        <p>{this.state.activeItem}</p>
                         <PrivateRoute exact path="/" component={HomePage} msg={alert.message} />
                         <Route path="/login" render={()=><LoginPage msg={alert.message}/>}/>
                         <Route path="/register" render={()=><RegisterPage msg={alert.message}/>}/>
