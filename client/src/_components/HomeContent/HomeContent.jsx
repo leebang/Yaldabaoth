@@ -10,11 +10,11 @@ class HomeContent extends Component {
     }
 
     render() {
-        const src = '../../samples/image.jpg';
-        const src1 = '../../samples/sampleHead.png';
+        const src = '../../public/image.jpg';
+        const src1 = '../../public/sampleHead.png';
         return (
             <div>
-            <div><Image src= '../../samples/homeback.png' fluid/></div>
+            <div><Image src= '../../public/homeback.png' fluid/></div>
             <Container>
                 <h1></h1>
                 <h1>Today's Hot Pick</h1>
