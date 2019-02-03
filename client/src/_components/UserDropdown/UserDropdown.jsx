@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Dropdown, Icon, Button } from 'semantic-ui-react';
+import { Dropdown, Icon, Button, Segment } from 'semantic-ui-react';
 import { userActions } from '../../_actions';
 
 
@@ -20,9 +20,7 @@ class UserDropdown extends Component {
         return (
             <div>
                 <p></p>
-                <p></p>
-                <p></p>
-                <p></p>
+                <Segment inverted>
                 <Icon name='user' />
                 <Dropdown inline text={JSON.parse(localStorage.getItem('user')).nickName} pointing='top left'>
                     <Dropdown.Menu>
@@ -34,6 +32,7 @@ class UserDropdown extends Component {
                         </Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
+                </Segment>
             </div>
         );
     }

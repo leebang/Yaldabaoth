@@ -12,7 +12,10 @@ class MenuBar extends Component {
         }; 
     }
 
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+    handleItemClick = (e, { name }) => {
+        this.setState({ activeItem: name });
+        this.props.onMenuBar(name); 
+    }
 
     render() {
         const { activeItem } = this.state;
