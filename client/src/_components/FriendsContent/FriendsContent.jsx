@@ -1,6 +1,37 @@
 import React, { Component } from 'react'
 import { Menu, Label, Image, Input, Grid, Segment, Card, Container } from 'semantic-ui-react'
 
+class UserCards extends Component {
+    constructor(props) {
+        super(props);
+        
+    }
+    render() {
+        const src1 = '../../../samples/sampleHead.png';
+        const myfriends=[{name:'Noob',image:src1},
+                        {name:'Noob',image:src1},
+                        {name:'Noob',image:src1},
+                        {name:'Noob',image:src1},
+                        {name:'Noob',image:src1},
+                        {name:'Noob',image:src1},];
+        return (
+            <div>
+                <Card.Group itemsPerRow={4}>
+                        {myfriends.map((f) =>
+                            <Card>
+                                <Image src={f.image} />
+                                <Card.Content>
+                                <Card.Header>{f.name}</Card.Header>
+                                </Card.Content>
+                            </Card>
+                        )}
+                </Card.Group>
+            </div>
+        );
+    }
+}
+
+
 class FriendsContent extends Component {
     constructor(props) {
         super(props);
@@ -11,7 +42,6 @@ class FriendsContent extends Component {
 
     render() {
         const { activeItem } = this.state;
-        const src1 = '../../../samples/sampleHead.png';
         return (
             <div>
             <Grid>
@@ -34,44 +64,8 @@ class FriendsContent extends Component {
                 </Grid.Column>
                 <Grid.Column width={13}>
                     <Segment>
-                        <Card.Group itemsPerRow={4}>
-                        <Card>
-                            <Image src={src1} />
-                            <Card.Content>
-                            <Card.Header>Noob</Card.Header>
-                            </Card.Content>
-                        </Card>
-                        <Card>
-                            <Image src={src1} />
-                            <Card.Content>
-                            <Card.Header>Noob</Card.Header>
-                            </Card.Content>
-                        </Card>
-                        <Card>
-                            <Image src={src1} />
-                            <Card.Content>
-                            <Card.Header>Noob</Card.Header>
-                            </Card.Content>
-                        </Card>
-                        <Card>
-                            <Image src={src1} />
-                            <Card.Content>
-                            <Card.Header>Noob</Card.Header>
-                            </Card.Content>
-                        </Card>
-                        <Card>
-                            <Image src={src1} />
-                            <Card.Content>
-                            <Card.Header>Noob</Card.Header>
-                            </Card.Content>
-                        </Card>
-                        <Card>
-                            <Image src={src1} />
-                            <Card.Content>
-                            <Card.Header>Noob</Card.Header>
-                            </Card.Content>
-                        </Card>
-                        </Card.Group>
+                        {activeItem=='mine' && <UserCards />}
+                        {activeItem=='requests' && <UserCards />}
                     </Segment>
                 </Grid.Column>
             </Grid>

@@ -1,6 +1,37 @@
 import React, { Component } from 'react'
 import { Menu, Label, Image, Input, Grid, Segment, Card, Container } from 'semantic-ui-react'
 
+class GameCards extends Component {
+    constructor(props) {
+        super(props);
+        
+    }
+    render() {
+        const src = '../../../samples/image.jpg';
+        const mygames=[{name:'Witcher3',image:src},
+                        {name:'Witcher3',image:src},
+                        {name:'Witcher3',image:src},
+                        {name:'Witcher3',image:src},
+                        {name:'Witcher3',image:src},
+                        {name:'Witcher3',image:src},];
+        return (
+            <div>
+                <Card.Group itemsPerRow={4}>
+                        {mygames.map((g) =>
+                            <Card>
+                                <Image src={g.image} />
+                                <Card.Content>
+                                <Card.Header>{g.name}</Card.Header>
+                                </Card.Content>
+                            </Card>
+                        )}
+                </Card.Group>
+            </div>
+        );
+    }
+}
+
+
 class GamesContent extends Component {
     constructor(props) {
         super(props);
@@ -11,7 +42,6 @@ class GamesContent extends Component {
 
     render() {
         const { activeItem } = this.state;
-        const src = '../../../samples/image.jpg';
         return (
             <div>
             <Grid>
@@ -32,44 +62,8 @@ class GamesContent extends Component {
                 </Grid.Column>
                 <Grid.Column width={13}>
                     <Segment>
-                        <Card.Group itemsPerRow={4}>
-                        <Card>
-                            <Image src={src} />
-                            <Card.Content>
-                            <Card.Header>Witcher 3</Card.Header>
-                            </Card.Content>
-                        </Card>
-                        <Card>
-                            <Image src={src} />
-                            <Card.Content>
-                            <Card.Header>Witcher 3</Card.Header>
-                            </Card.Content>
-                        </Card>
-                        <Card>
-                            <Image src={src} />
-                            <Card.Content>
-                            <Card.Header>Witcher 3</Card.Header>
-                            </Card.Content>
-                        </Card>
-                        <Card>
-                            <Image src={src} />
-                            <Card.Content>
-                            <Card.Header>Witcher 3</Card.Header>
-                            </Card.Content>
-                        </Card>
-                        <Card>
-                            <Image src={src} />
-                            <Card.Content>
-                            <Card.Header>Witcher 3</Card.Header>
-                            </Card.Content>
-                        </Card>
-                        <Card>
-                            <Image src={src} />
-                            <Card.Content>
-                            <Card.Header>Witcher 3</Card.Header>
-                            </Card.Content>
-                        </Card>
-                        </Card.Group>
+                        {activeItem=='mine' && <GameCards />}
+                        {activeItem=='explore' && <GameCards />}
                     </Segment>
                 </Grid.Column>
             </Grid>
