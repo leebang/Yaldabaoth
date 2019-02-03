@@ -19,7 +19,6 @@ class UserDropdown extends Component {
     render() {
         return (
             <div>
-                <p></p>
                 <Segment inverted>
                 <Icon name='user' />
                 <Dropdown inline text={JSON.parse(localStorage.getItem('user')).nickName} pointing='top left'>

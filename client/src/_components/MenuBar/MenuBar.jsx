@@ -24,7 +24,7 @@ class MenuBar extends Component {
         return (
             <div>
                 <Segment inverted>
-                <Menu inverted stackable icon='labeled' size='small' secondary widths={5}>
+                <Menu inverted stackable icon='labeled' size='small' secondary widths={6}>
                     <Menu.Item fitted >
                         <Image src='../../../samples/temp.png' as={Link} to="/"/>
                     </Menu.Item>
@@ -54,6 +54,15 @@ class MenuBar extends Component {
                     >
                     <Icon name='users' />
                     Friends
+                    </Menu.Item>
+                    <Menu.Item
+                        name='Radar'
+                        active={activeItem === 'Radar'}
+                        onClick={this.handleItemClick}
+                        as={Link} to="/"
+                    >
+                    <Icon name='map marker alternate' />
+                    Radar
                     </Menu.Item>
                     <Menu.Menu position='right'>
                         {value ? <UserDropdown /> : <LoginForm msg={msg}/>}
