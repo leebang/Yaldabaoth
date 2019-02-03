@@ -23,9 +23,9 @@ app.use('/games', require('./db/games.controller'));
 // global error handler
 app.use(errorHandler);
 
-app.use(express.static(path.join(__dirname,'client/dist')));
+app.use(express.static(path.join(__dirname,'client/build')));
 app.get('/',function (req, res) {
-    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
   });
 
 // start server
