@@ -29,12 +29,11 @@ class UserProfilePage extends Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
-        // this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
         const { name, value } = event.target;
-        console.log(event.target);
         const { user } = this.state;
         this.setState({
             user: {
@@ -43,6 +42,15 @@ class UserProfilePage extends Component {
             }
         });
     }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        this.setState( {submitted: true} );
+        const { user } = this.state;
+        const { dispatch } = this.props;
+        dispatch(userActions.updateUser(user));
+    }
+
 
     render() {
         return (
@@ -71,11 +79,12 @@ class UserProfilePage extends Component {
                         </Grid.Column>
 
                     <Grid.Column width={11}>
-                    <Form >
+                    <Form onSubmit={this.handleSubmit}>
                         <Form.Field width={6}>
                         <label>Nickname</label>
                         <Input name="nickName" value={this.state.user.nickName} onChange={this.handleChange}/>
                         </Form.Field>
+                        
                         <Form.Group>
                         <Form.Field>
                         <label>Old Password</label>
@@ -104,13 +113,14 @@ class UserProfilePage extends Component {
                                 onChange={this.handleChange} />
                         </Form.Field>
 
-                        <Form.TextArea width={8} 
-                        label='About'
-                        name='description'
-                        placeholder='Tell us more about you...' 
-                        value={this.state.user.description}
-                        onChange={this.handleChange}
-                        />
+                        <Form.Field width={8}>
+                        <label>About</label>
+                            <input name='description'
+                                   placeholder='Tell us more about you...' 
+                                   value={this.state.user.description}
+                                   onChange={this.handleChange}
+                                        />
+                        </Form.Field>
             
                         <Button type='submit'>Submit</Button>
                     </Form>
