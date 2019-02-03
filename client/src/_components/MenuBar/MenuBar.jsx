@@ -26,7 +26,7 @@ class MenuBar extends Component {
                 <Segment inverted>
                 <Menu inverted stackable icon='labeled' size='small' secondary widths={6}>
                     <Menu.Item fitted >
-                        <Image src='../../../samples/temp.png' as={Link} to="/"/>
+                        <Image src='../../../samples/temp.png' href="/" />
                     </Menu.Item>
                     <Menu.Item 
                         name='Home' 
