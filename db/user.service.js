@@ -47,20 +47,35 @@ async function getById(id) {
 }
 
 async function create(userParam) {
-    // validate
     if (await User.findOne({ username: userParam.username })) {
-        throw 'Username "' + userParam.username + '" is already taken';
+        throw 'Game called "' + userParam.username + '" is already exist';
     }
-
-    var user = new User(userParam);
-
-    // hash password
+    const user = new User(userParam);
     if (userParam.password) {
         user.hash = bcrypt.hashSync(userParam.password, 10);
     }
-
+    if(userParam.steamAccount){
+        var options = {
+            method: 'GET',
+            uri: "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=479387AA962E63341F51611AD7D193E3&include_appinfo=1&steamid="+userParam.steamAccount+"&format=json",
+            json: true // Automatically parses the JSON string in the response
+        };
+        var resp = await request(options);
+        if(resp==null){
+            throw 'Steam ID is not valid';
+        }
+        var sending_array = resp.response.games.map(function(g){
+            return JSON.stringify({url:"https://store.steampowered.com/agecheck/app/"+g.appid,
+            platform:['Steam'],
+            gameName:g.name,
+            playTime:g.playtime_forever,
+            imgIconUrl:g.img_icon_url,
+            imgLogiUrl:g.img_logo_url,
+            userList:[]});
+        });
+    }
+    user.gamesList=sending_array.slice();
     await user.save();
-    
 }
 
 async function update(id, userParam) {
