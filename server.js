@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.set('view engine', 'html');
 // use JWT auth to secure the api
-app.use(jwt());
+app.use('/users',jwt());
 
 // api routes
 app.use('/users', require('./db/users.controller'));
