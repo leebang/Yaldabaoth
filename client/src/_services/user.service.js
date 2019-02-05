@@ -16,7 +16,6 @@ export const userService = {
 function login(username, password) {
     const requestOptions = {
         method: 'POST',
-        mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
     };
@@ -39,7 +38,6 @@ function logout() {
 function getAllUser() {
     const requestOptions = {
         method: 'GET',
-        mode: 'cors',
         headers: authHeader()
     };
 
@@ -49,7 +47,6 @@ function getAllUser() {
 function getById(id) {
     const requestOptions = {
         method: 'GET',
-        mode: 'cors',
         headers: authHeader()
     };
 
@@ -59,7 +56,6 @@ function getById(id) {
 function getAllGamesById(id) {
     const requestOptions = {
         method: 'GET',
-        mode: 'cors',
         headers: authHeader()
     };
 
@@ -69,7 +65,6 @@ function getAllGamesById(id) {
 function getAllFriendsById(id) {
     const requestOptions = {
         method: 'GET',
-        mode: 'cors',
         headers: authHeader()
     };
 
@@ -79,7 +74,6 @@ function getAllFriendsById(id) {
 function register(user) {
     const requestOptions = {
         method: 'POST',
-        mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(user)
     };
@@ -90,7 +84,6 @@ function register(user) {
 function update(user) {
     const requestOptions = {
         method: 'PUT',
-        mode: 'cors',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
         body: JSON.stringify(user)
     };
@@ -109,7 +102,6 @@ function update(user) {
 function _delete(id) {
     const requestOptions = {
         method: 'DELETE',
-        mode: 'cors',
         headers: authHeader()
     };
 
