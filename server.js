@@ -9,7 +9,11 @@ const path = require('path');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors());
+var corsOptions = {
+    origin: 'https://steamate.herokuapp.com',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }
+app.use(cors(corsOptions));
 // use JWT auth to secure the api
 app.use('/users',jwt());
 
