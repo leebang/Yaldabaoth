@@ -10,16 +10,8 @@ const path = require('path');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-app.set('view engine', 'html');
 // use JWT auth to secure the api
 app.use('/users',jwt());
-const middleware = (req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-}
 
 // api routes
 app.use('/users', require('./db/users.controller'),middleware);

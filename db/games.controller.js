@@ -1,14 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const gameService = require('./game.service');
-
+const middleware = (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'content-type')
+    next();
+}
 // routes
-router.post('/registergame', register);
-router.get('/', getAll);
-router.get('/users', getAllUserByGame);
-router.get('/:id', getById);
-router.put('/:id', update);
-router.delete('/:id', _delete);
+router.post('/registergame', register,middleware);
+router.get('/', getAll,middleware);
+router.get('/users', getAllUserByGame,middleware);
+router.get('/:id', getById,middleware);
+router.put('/:id', update,middleware);
+router.delete('/:id', _delete,middleware);
 
 module.exports = router;
 
