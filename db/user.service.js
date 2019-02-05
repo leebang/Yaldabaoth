@@ -104,7 +104,7 @@ async function update(id, userParam) {
     Object.assign(user, userParam);
 
     await user.save();
-    // return user.toObject();
+    return await User.findById(id).select('-hash');
 }
 
 async function _delete(id) {

@@ -21,7 +21,8 @@ export function users(state = {}, action) {
       };
     case userConstants.GETONE_SUCCESS:
       return {
-        items: action.user
+        loading: false,
+        item: action.user
       };
     case userConstants.GETONE_FAILURE:
       return { 
@@ -34,7 +35,7 @@ export function users(state = {}, action) {
       };
     case userConstants.UPDATE_SUCCESS:
       return {
-        items: action.user
+        item: action.user
       };
     case userConstants.UPDATE_FAILURE:
       return { 

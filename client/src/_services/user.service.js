@@ -89,13 +89,14 @@ function update(user) {
     };
 
     return fetch(`${config.apiUrl}/users/${user._id}`, requestOptions)
-    .then(handleResponse);
-    // .then(user => {
-    //     // store user details and jwt token in local storage to keep user logged in between page refreshes
-    //     localStorage.setItem('user', JSON.stringify(user));
-
-    //     return user;
-    // });
+    .then(handleResponse)   
+        .then(updated_user => {
+            updated_user={...updated_user,token:localStorage.getItem('user').token};
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('user', JSON.stringify(updated_user));
+            console.log("_service update: " + updated_user.token);
+            return updated_user;
+        });
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript

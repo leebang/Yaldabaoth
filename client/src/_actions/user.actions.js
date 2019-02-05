@@ -113,7 +113,7 @@ function updateUser(user) {
             );
     };
 
-    function request(user) { return { type: userConstants.UPDATE_REQUEST, user } }
+    function request() { return { type: userConstants.UPDATE_REQUEST } }
     function success(user) { return { type: userConstants.UPDATE_SUCCESS, user } }
     function failure(error) { return { type: userConstants.UPDATE_FAILURE, error } }
 }
