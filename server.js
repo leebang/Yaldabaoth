@@ -9,8 +9,11 @@ const path = require('path');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors());
-app.set('view engine', 'html');
+var corsOptions = {
+    origin: 'https://steamate.herokuapp.com',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }
+app.use(cors(corsOptions));
 // use JWT auth to secure the api
 app.use('/users',jwt());
 
@@ -25,14 +28,8 @@ app.use(express.static(path.join(__dirname,'client/build')));
 app.get('/',function (req, res) {
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
   });
-  
-  app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", '*');
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-    next();
-});
+
+
 // start server
 const port = process.env.PORT || 4000;
 const server = app.listen(port, function () {
