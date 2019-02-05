@@ -6,14 +6,16 @@ const bodyParser = require('body-parser');
 const jwt = require('_helpers/jwt');
 const errorHandler = require('_helpers/error-handler');
 const path = require('path');
+const fs = require('fs');
+const http = require('http');
+const https = require('https');
+const privateKey  = fs.readFileSync('./server.key', 'utf8');
+const certificate = fs.readFileSync('./server.cert', 'utf8');
+var credentials = {key: privateKey, cert: certificate};
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-var corsOptions = {
-    origin: 'https://steamate.herokuapp.com',
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-  }
-app.use(cors(corsOptions));
+app.use(cors());
 // use JWT auth to secure the api
 app.use('/users',jwt());
 
@@ -28,10 +30,13 @@ app.use(express.static(path.join(__dirname,'client/build')));
 app.get('/',function (req, res) {
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
   });
-
-
-// start server
-const port = process.env.PORT || 4000;
-const server = app.listen(port, function () {
-    console.log('Server listening on port ' + port);
+app.get('/login',function (req, res) {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
+
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
+
+httpServer.listen(8000);
+httpsServer.listen(4000);
+
