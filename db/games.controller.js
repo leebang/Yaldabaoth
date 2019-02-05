@@ -3,12 +3,12 @@ const router = express.Router();
 const gameService = require('./game.service');
 
 // routes
-router.post('/registergame', register,middleware);
-router.get('/', getAll,middleware);
-router.get('/users', getAllUserByGame,middleware);
-router.get('/:id', getById,middleware);
-router.put('/:id', update,middleware);
-router.delete('/:id', _delete,middleware);
+router.post('/registergame', register);
+router.get('/', getAll);
+router.get('/users', getAllUserByGame);
+router.get('/:id', getById);
+router.put('/:id', update);
+router.delete('/:id', _delete);
 
 module.exports = router;
 
