@@ -27,16 +27,14 @@ app.use('/games', require('./db/games.controller'));
 app.use(errorHandler);
 
 app.use(express.static(path.join(__dirname,'client/build')));
-app.get('/',function (req, res) {
+app.get('*',function (req, res) {
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
   });
-app.get('/login',function (req, res) {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
-});
 
-var httpServer = http.createServer(app);
+
+
 var httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(8000);
+
 httpsServer.listen(4000);
 
