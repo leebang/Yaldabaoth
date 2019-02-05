@@ -6,12 +6,6 @@ const bodyParser = require('body-parser');
 const jwt = require('_helpers/jwt');
 const errorHandler = require('_helpers/error-handler');
 const path = require('path');
-const fs = require('fs');
-const http = require('http');
-const https = require('https');
-const privateKey  = fs.readFileSync('./server.key', 'utf8');
-const certificate = fs.readFileSync('./server.cert', 'utf8');
-var credentials = {key: privateKey, cert: certificate};
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -32,9 +26,8 @@ app.get('*',function (req, res) {
   });
 
 
-
-var httpsServer = https.createServer(credentials, app);
-
-
-httpsServer.listen(4000);
-
+// start server
+const port = process.env.PORT || 4000;
+app.listen(port, function () {
+    console.log('Server listening on port ' + port);
+});
