@@ -13,10 +13,17 @@ app.use(cors());
 app.set('view engine', 'html');
 // use JWT auth to secure the api
 app.use('/users',jwt());
+const middleware = (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+}
 
 // api routes
-app.use('/users', require('./db/users.controller'));
-app.use('/games', require('./db/games.controller'));
+app.use('/users', require('./db/users.controller'),middleware);
+app.use('/games', require('./db/games.controller'),middleware);
 
 // global error handler
 app.use(errorHandler);
@@ -26,13 +33,7 @@ app.get('/',function (req, res) {
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
   });
 
-  app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4000');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-});
+
 // start server
 const port = process.env.PORT || 4000;
 const server = app.listen(port, function () {
