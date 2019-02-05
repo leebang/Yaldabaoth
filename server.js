@@ -14,8 +14,8 @@ app.use(cors());
 app.use('/users',jwt());
 
 // api routes
-app.use('/users', require('./db/users.controller'),middleware);
-app.use('/games', require('./db/games.controller'),middleware);
+app.use('/users', require('./db/users.controller'));
+app.use('/games', require('./db/games.controller'));
 
 // global error handler
 app.use(errorHandler);
