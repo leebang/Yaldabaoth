@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Menu, Label, Image, Input, Grid, Segment, Card, Container } from 'semantic-ui-react'
+import { Menu, Label, Image, Input, Grid, Segment, Card, Dimmer, Loader } from 'semantic-ui-react'
+import { gameActions } from '../../_actions';
+import { connect } from 'react-redux';
 
 class GameCards extends Component {
     constructor(props) {
@@ -7,21 +9,14 @@ class GameCards extends Component {
         
     }
     render() {
-        const src = '../../../samples/image.jpg';
-        const mygames=[{name:'Witcher3',image:src},
-                        {name:'Witcher3',image:src},
-                        {name:'Witcher3',image:src},
-                        {name:'Witcher3',image:src},
-                        {name:'Witcher3',image:src},
-                        {name:'Witcher3',image:src},];
         return (
             <div>
                 <Card.Group itemsPerRow={4}>
-                        {mygames.map((g) =>
-                            <Card>
-                                <Image src={g.image} />
+                        {this.props.games.map((g) =>
+                            <Card key={g.gameName}>
+                                <Image src={g.imgIconUrl} />
                                 <Card.Content>
-                                <Card.Header>{g.name}</Card.Header>
+                                <Card.Header>{g.gameName}</Card.Header>
                                 </Card.Content>
                             </Card>
                         )}
@@ -38,10 +33,15 @@ class GamesContent extends Component {
         this.state = { activeItem: 'mine' }
     }
 
+    componentDidMount() {
+        this.props.dispatch(gameActions.getAllGames());
+    }
+
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
     render() {
         const { activeItem } = this.state;
+        const { games } = this.props;
         return (
             <div>
             <Grid>
@@ -61,15 +61,28 @@ class GamesContent extends Component {
                     </Menu>
                 </Grid.Column>
                 <Grid.Column width={13}>
+                    {games.items ? 
                     <Segment>
-                        {activeItem=='mine' && <GameCards />}
-                        {activeItem=='explore' && <GameCards />}
+                        {activeItem=='mine' && <GameCards games={games.items}/>}
+                        {activeItem=='explore' && <GameCards games={games.items}/>}
                     </Segment>
+                    :
+                    <Dimmer active inverted inline='centered'>
+                        <Loader size='large'>Loading</Loader>
+                    </Dimmer>
+                    }
                 </Grid.Column>
             </Grid>
             </div>
         );
     }
 }
+function mapStateToProps(state) {
+    const { games } = state;
+    return {
+        games
+    };
+}
 
-export { GamesContent as GamesContent }; 
+const connectedGamesContent = connect(mapStateToProps)(GamesContent);
+export { connectedGamesContent as GamesContent }; 

@@ -63,13 +63,14 @@ async function create(userParam) {
         if(resp==null){
             throw 'Steam ID is not valid';
         }
+        console.log("http://media.steampowered.com/steamcommunity/public/images/apps/");
         var sending_array = resp.response.games.map(function(g){
             return JSON.stringify({url:"https://store.steampowered.com/agecheck/app/"+g.appid,
             platform:['Steam'],
             gameName:g.name,
             playTime:g.playtime_forever,
-            imgIconUrl:g.img_icon_url,
-            imgLogiUrl:g.img_logo_url,
+            imgIconUrl:"http://media.steampowered.com/steamcommunity/public/images/apps/"+g.appid+"/"+g.img_icon_url+".jpg",
+            imgLogiUrl:"http://media.steampowered.com/steamcommunity/public/images/apps/"+g.appid+"/"+g.img_logo_url+".jpg",
             userList:[]});
         });
     }
