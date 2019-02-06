@@ -68,8 +68,8 @@ async function create(userParam) {
             platform:['Steam'],
             gameName:g.name,
             playTime:g.playtime_forever,
-            imgIconUrl:g.img_icon_url ? "http://media.steampowered.com/steamcommunity/public/images/apps/"+g.appid+"/"+g.img_icon_url+".jpg" : "",
-            imgLogoUrl:g.img_logo_url ? "http://media.steampowered.com/steamcommunity/public/images/apps/"+g.appid+"/"+g.img_logo_url+".jpg" : "",
+            imgIconUrl:g.img_icon_url!="" ? "http://media.steampowered.com/steamcommunity/public/images/apps/"+g.appid+"/"+g.img_icon_url+".jpg" : "",
+            imgLogoUrl:g.img_logo_url!="" ? "http://media.steampowered.com/steamcommunity/public/images/apps/"+g.appid+"/"+g.img_logo_url+".jpg" : "",
             userList:[]
         });
         });
