@@ -14,7 +14,7 @@ class GameCards extends Component {
                 <Card.Group itemsPerRow={4}>
                         {this.props.games.map((g) =>
                             <Card key={g.gameName}>
-                                <Image src={g.imgIconUrl} />
+                                <Image src={g.imgLogoUrl=="" ? "" : g.imgLogoUrl} />
                                 <Card.Content>
                                 <Card.Header>{g.gameName}</Card.Header>
                                 </Card.Content>
