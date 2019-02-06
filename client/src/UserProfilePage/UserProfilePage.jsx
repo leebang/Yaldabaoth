@@ -10,7 +10,7 @@ import { authentication } from '../_reducers/authentication.reducer';
 class UserProfilePage extends Component { 
     constructor(props) {
         super(props);
-
+        // branch inks
         this.state = {
             submitted: false,
             curUser: this.props.users.item
