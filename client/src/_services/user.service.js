@@ -87,15 +87,17 @@ function update(user) {
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
         body: JSON.stringify(user)
     };
+    const token = JSON.parse(localStorage.getItem('user')).token;
+    // console.log("token is: " + token);
 
     return fetch(`${config.apiUrl}/users/${user._id}`, requestOptions)
     .then(handleResponse)   
-        .then(updated_user => {
-            updated_user={...updated_user,token:localStorage.getItem('user').token};
+        .then(new_user => {
+            new_user = {...new_user, token};
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('user', JSON.stringify(updated_user));
-            console.log("_service update: " + updated_user.token);
-            return updated_user;
+            localStorage.setItem('user', JSON.stringify(new_user));
+            
+            return new_user;
         });
 }
 

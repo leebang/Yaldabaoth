@@ -18,21 +18,21 @@ class UserProfilePage extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        console.log("construcotr called");
+        // console.log("construcotr called");
     }
 
     componentDidMount() {
         let theUser = JSON.parse(localStorage.getItem('user'));
         this.props.dispatch(userActions.getOneUser(theUser._id));
         // this.setState({ curUser: this.props.users.item });
-        console.log("DidMount called");
+        // console.log("DidMount called");
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log("WillReceiveProps Called");
+        // console.log("WillReceiveProps Called");
         this.setState({ curUser: nextProps.users.item });
         // localStorage.setItem('user', JSON.stringify(this.state.curUser));
-        console.log("curUser -> " + this.state.curUser);
+        // console.log("curUser -> " + this.state.curUser);
 
     }
 
@@ -67,9 +67,9 @@ class UserProfilePage extends Component {
         // users.items = this user
         // const user = this.props.users.item;
         const user = this.state.curUser;
-        console.log("render called");
-        console.log("users.item -> " + user);
-        console.log(user);
+        // console.log("render called");
+        // console.log("users.item -> " + user);
+        // console.log(user);
         // console.log("users.items -> " + users);
         return (
         <div>
@@ -164,7 +164,6 @@ class UserProfilePage extends Component {
 
 function mapStateToProps(state) {
     const { users } = state;
-    console.log("mapStateToProps called");
     return {
         users
     };
