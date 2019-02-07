@@ -8,7 +8,7 @@ import { PrivateRoute } from '../_components';
 import { HomePage } from '../HomePage';
 import { LoginPage } from '../LoginPage';
 import { RegisterPage } from '../RegisterPage';
-import { UserProfilePage } from '../UserProfilePage';
+import { UserSettingPage } from '../UserSettingPage';
 import { MenuBar } from '../_components/MenuBar'
 import { Segment } from 'semantic-ui-react';
 import { Helmet } from 'react-helmet';
@@ -46,7 +46,7 @@ class App extends React.Component {
                         <PrivateRoute exact path="/" component={HomePage} msg={alert.message} menu={activeItem}/>
                         <Route path="/login" render={()=><LoginPage msg={alert.message} menu={activeItem} />}/>
                         <Route path="/register" render={()=><RegisterPage msg={alert.message}/>}/>
-                        <Route path="/profile" render={()=><UserProfilePage msg={alert.message}/>}/>
+                        <Route path="/profile" render={()=><UserSettingPage msg={alert.message}/>}/>
                     </Segment>
                 </Router>  
             </div>  
