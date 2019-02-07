@@ -84,7 +84,7 @@ async function create(userParam) {
         var game = await gameService.getByName(element.gameName);
         if(game){
             game.userList.push(userParam.username);
-            await gameService.update(element._id,element);
+            await gameService.update(game._id,game);
         }else{
             element.userList.push(userParam.username);
             await gameService.create(element);
