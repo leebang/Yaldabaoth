@@ -21,9 +21,6 @@ class HomePage extends React.Component {
         const { user, users, msg, menu } = this.props;
         return (
             <div>
-            <Helmet>
-            <style>{'body { background-color: rgb(27,28,29); }'}</style>
-            </Helmet>
             {menu=='Home' && <HomeContent />}
             {menu=='Games' && <GamesContent />}
             {menu=='Friends' && <FriendsContent />}
