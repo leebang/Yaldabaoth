@@ -59,10 +59,7 @@ async function create(userParam) {
             uri: "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=479387AA962E63341F51611AD7D193E3&include_appinfo=1&steamid="+userParam.steamAccount+"&format=json",
             json: true // Automatically parses the JSON string in the response
         };
-        var resp = await request(options);
-        if(resp==null){
-            throw 'Steam ID is not valid';
-        }
+        var resp = await request(options).catch((err) => { throw 'Steam ID is in valid'; });
         var sending_array = resp.response.games.map(function(g){
             return JSON.stringify({url:"https://store.steampowered.com/agecheck/app/"+g.appid,
             platform:['Steam'],
@@ -80,7 +77,7 @@ async function create(userParam) {
     var games_array = sending_array.map(function(g){
         return JSON.parse(g);
     });
-    games_array.forEach(element => {
+    games_array.forEach(async function(element){
         var game = await gameService.getByName(element.gameName);
         if(game){
             game.userList.push(userParam.username);
