@@ -19,7 +19,7 @@ async function getAllUserByGame(id) {
 }
 
 async function getByName(name) {
-    return await Game.findOne({ gameName: name }).select('-userList');
+    return await Game.findOne({ gameName: name });
 }
 
 async function create(Param) {
