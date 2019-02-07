@@ -107,15 +107,15 @@ function updateUser(user) {
                     history.push('/profile');
                 },
                 error => {
-                    dispatch(failure(error.toString()));
-                    // dispatch(alertActions.error(error.toString()));
+                    dispatch(failure(error.toString(), user));
+                    dispatch(alertActions.error(error.toString()));
                 }
             );
     };
 
     function request() { return { type: userConstants.UPDATE_REQUEST } }
     function success(user) { return { type: userConstants.UPDATE_SUCCESS, user } }
-    function failure(error) { return { type: userConstants.UPDATE_FAILURE, error } }
+    function failure(error, user) { return { type: userConstants.UPDATE_FAILURE, error, user } }
 }
 
 

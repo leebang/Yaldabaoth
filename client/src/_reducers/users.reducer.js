@@ -39,7 +39,8 @@ export function users(state = {}, action) {
       };
     case userConstants.UPDATE_FAILURE:
       return { 
-        error: action.error
+        error: action.error,
+        item: action.user
       };
 
     case userConstants.DELETE_REQUEST:

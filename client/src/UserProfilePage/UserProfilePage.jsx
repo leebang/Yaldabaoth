@@ -11,8 +11,8 @@ class UserProfilePage extends Component {
         super(props);
         // branch inks
         this.state = {
+            userId: JSON.parse(localStorage.getItem('user'))._id,
             submitted: false,
-            wrongPassword: false,
             curUser: this.props.users.item
         };
 
@@ -21,8 +21,7 @@ class UserProfilePage extends Component {
     }
 
     componentDidMount() {
-        let theUser = JSON.parse(localStorage.getItem('user'));
-        this.props.dispatch(userActions.getOneUser(theUser._id));
+        this.props.dispatch(userActions.getOneUser(this.state.userId));
     }
 
     componentWillReceiveProps(nextProps) {
@@ -50,6 +49,11 @@ class UserProfilePage extends Component {
         const { dispatch } = this.props;
         console.log(curUser);
         dispatch(userActions.updateUser(curUser));
+        this.setState({curUser: this.props.users.item});
+        // if(this.props.users.error){
+        //     console.log("please get msg");
+        //     this.props.dispatch(userActions.getOneUser(this.state.userId));
+        // }
         // if (curUser.newpassword == curUser.newPasswordCompare) {
         //     dispatch(userActions.updateUser(curUser));
         // } else {
@@ -60,6 +64,7 @@ class UserProfilePage extends Component {
 
     render() {
         const user = this.state.curUser;
+        const { submitted } = this.state; 
         const { msg } = this.props;
         return (
         <div>
@@ -96,6 +101,9 @@ class UserProfilePage extends Component {
                         <Form.Field>
                         <label>Old Password</label>
                         <Input name="password" onChange={this.handleChange} placeholder='Old Password'/>
+                        {/* {submitted && !user.nickName &&
+                            <div className="help-block">Nickname is required</div>
+                                } */}
                         </Form.Field>
                         <Form.Field>
                         <label>New Password</label>
