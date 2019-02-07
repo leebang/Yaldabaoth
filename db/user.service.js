@@ -96,8 +96,25 @@ async function update(id, userParam) {
     }
 
     // hash password if it was entered
+
+
     if (userParam.password) {
-        userParam.hash = bcrypt.hashSync(userParam.password, 10);
+        const originPassword = await User.findById(id).select('hash');
+        // console.log("old password: " + oldPassword);
+        // console.log("origin password: " + originPassword.hash);
+        if (bcrypt.compareSync(userParam.password, originPassword.hash)){
+            if (userParam.newPassword) {
+                if (userParam.newPassword == userParam.newPasswordCompare) {
+                    userParam.hash = bcrypt.hashSync(userParam.newPassword, 10);
+                } else {
+                    throw "Please make sure your new passwords are the same."
+                }
+            } else {
+                throw "Please enter new password.";
+            }
+        } else {
+            throw "Old password incorrect.";
+        }
     }
 
     // copy userParam properties to user

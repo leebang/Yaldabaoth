@@ -98,7 +98,7 @@ function getOneUser(id) {
 function updateUser(user) {
     return dispatch => {
         // To request
-        dispatch(request(user));
+        dispatch(request());
 
         userService.update(user)
             .then(

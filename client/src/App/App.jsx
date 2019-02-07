@@ -11,6 +11,7 @@ import { RegisterPage } from '../RegisterPage';
 import { UserProfilePage } from '../UserProfilePage';
 import { MenuBar } from '../_components/MenuBar'
 import { Segment } from 'semantic-ui-react';
+import { Helmet } from 'react-helmet';
 
 class App extends React.Component {
     constructor(props) {
@@ -36,13 +37,16 @@ class App extends React.Component {
         const { activeItem } = this.state;
         return (
             <div>
+                <Helmet>
+                <style>{'body { background-color: rgb(27,28,29); }'}</style>
+                </Helmet>
                 <Router history={history}>
                     <Segment inverted>
                         <MenuBar value={localStorage.getItem('user')? true:false} msg={alert.message} onMenuBar={this.handleTag}/>
                         <PrivateRoute exact path="/" component={HomePage} msg={alert.message} menu={activeItem}/>
                         <Route path="/login" render={()=><LoginPage msg={alert.message} menu={activeItem} />}/>
                         <Route path="/register" render={()=><RegisterPage msg={alert.message}/>}/>
-                        <Route path="/profile" render={()=><UserProfilePage/>}/>
+                        <Route path="/profile" render={()=><UserProfilePage msg={alert.message}/>}/>
                     </Segment>
                 </Router>  
             </div>  
