@@ -25,7 +25,16 @@ class UserProfilePage extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ curUser: nextProps.users.item });
+        console.log("will receive props(nextprops.user.item)");
+        var newUser = nextProps.users.item;
+        if(newUser){
+            Object.keys(newUser).map(function(key,index){
+                if(key=='password'||key=='newPassword'||key=='newPasswordCompare'){
+                    newUser[key]='';
+                }
+            });
+        }
+        this.setState({ curUser: newUser });
     }
 
     handleChange(event) {
@@ -49,7 +58,7 @@ class UserProfilePage extends Component {
         const { dispatch } = this.props;
         console.log(curUser);
         dispatch(userActions.updateUser(curUser));
-        this.setState({curUser: this.props.users.item});
+        // this.setState({curUser: this.props.users.item});
         // if(this.props.users.error){
         //     console.log("please get msg");
         //     this.props.dispatch(userActions.getOneUser(this.state.userId));
