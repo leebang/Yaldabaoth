@@ -69,7 +69,8 @@ async function create(userParam) {
             gameName:g.name,
             playTime:g.playtime_forever,
             imgIconUrl:g.img_icon_url!="" ? "http://media.steampowered.com/steamcommunity/public/images/apps/"+g.appid+"/"+g.img_icon_url+".jpg" : "",
-            imgLogoUrl:g.img_logo_url!="" ? "http://media.steampowered.com/steamcommunity/public/images/apps/"+g.appid+"/"+g.img_logo_url+".jpg" : ""
+            imgLogoUrl:g.img_logo_url!="" ? "http://media.steampowered.com/steamcommunity/public/images/apps/"+g.appid+"/"+g.img_logo_url+".jpg" : "",
+            userList:[]
         });
         });
     }
@@ -80,10 +81,12 @@ async function create(userParam) {
         return JSON.parse(g);
     });
     games_array.forEach(element => {
-        if(await gameService.getByName(element.gameName)){
-            element.userList.push(userParam.username);
+        var game = await gameService.getByName(element.gameName);
+        if(game){
+            game.userList.push(userParam.username);
             await gameService.update(element._id,element);
         }else{
+            element.userList.push(userParam.username);
             await gameService.create(element);
         }
     });
