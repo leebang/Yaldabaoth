@@ -18,29 +18,16 @@ class UserProfilePage extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        // console.log("construcotr called");
     }
 
     componentDidMount() {
         let theUser = JSON.parse(localStorage.getItem('user'));
         this.props.dispatch(userActions.getOneUser(theUser._id));
-        // this.setState({ curUser: this.props.users.item });
-        // console.log("DidMount called");
     }
 
     componentWillReceiveProps(nextProps) {
-        // console.log("WillReceiveProps Called");
         this.setState({ curUser: nextProps.users.item });
-        // localStorage.setItem('user', JSON.stringify(this.state.curUser));
-        // console.log("curUser -> " + this.state.curUser);
-
     }
-
-    // shouldComponentUpdate(){
-    //     const user = this.state.curUser;
-    //     console.log("shouldComponentUpdate user: " + user);
-    //     return JSON.stringify(user) !== "{}" ? false : true;
-    // }
 
     handleChange(event) {
         const { name, value } = event.target;
@@ -58,19 +45,11 @@ class UserProfilePage extends Component {
         this.setState( {submitted: true} );
         const { curUser } = this.state;
         const { dispatch } = this.props;
-        // console.log(user);
         dispatch(userActions.updateUser(curUser));
-        // window.location.reload();
     }
 
     render() {
-        // users.items = this user
-        // const user = this.props.users.item;
         const user = this.state.curUser;
-        // console.log("render called");
-        // console.log("users.item -> " + user);
-        // console.log(user);
-        // console.log("users.items -> " + users);
         return (
         <div>
             {user  ? 

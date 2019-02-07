@@ -88,7 +88,6 @@ function update(user) {
         body: JSON.stringify(user)
     };
     const token = JSON.parse(localStorage.getItem('user')).token;
-    // console.log("token is: " + token);
 
     return fetch(`${config.apiUrl}/users/${user._id}`, requestOptions)
     .then(handleResponse)   
