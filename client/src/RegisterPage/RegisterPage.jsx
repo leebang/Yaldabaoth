@@ -60,7 +60,7 @@ class RegisterPage extends React.Component {
                 <Grid.Column>
                     <Segment inverted color='black'>
                         {msg &&
-                        <Message color='red'>{msg}</Message>}
+                        <Message color='red'>{msg && msg!='Username or password is incorrect'}</Message>}
                         <h1>Register</h1>
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Field>

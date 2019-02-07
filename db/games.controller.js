@@ -5,8 +5,8 @@ const gameService = require('./game.service');
 // routes
 router.post('/registergame', register);
 router.get('/', getAll);
-router.get('/users', getAllUserByGame);
-router.get('/:id', getById);
+router.get('/:id/users', getAllUserByGame);
+router.get('/:name', getByName);
 router.put('/:id', update);
 router.delete('/:id', _delete);
 
@@ -31,8 +31,8 @@ function getAllUserByGame(req, res, next) {
         .catch(err => next(err));
 }
 
-function getById(req, res, next) {
-    gameService.getById(req.params.id)
+function getByName(req, res, next) {
+    gameService.getByName(req.params.name)
         .then(game => game ? res.json(game) : res.sendStatus(404))
         .catch(err => next(err));
 }
