@@ -22,6 +22,38 @@ async function authenticate({ username, password }) {
     if (user && bcrypt.compareSync(password, user.hash)) {
         const { hash, ...userWithoutHash } = user.toObject();
         const token = jwt.sign({ sub: user.id }, config.secret);
+        if(user.steamAccount){
+            var options = {
+                method: 'GET',
+                uri: "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=479387AA962E63341F51611AD7D193E3&include_appinfo=1&steamid="+userParam.steamAccount+"&format=json",
+                json: true // Automatically parses the JSON string in the response
+            };
+            var resp = await request(options);
+            var sending_array = resp.response.games.map(function(g){
+                return JSON.stringify({url:"https://store.steampowered.com/agecheck/app/"+g.appid,
+                platform:['Steam'],
+                gameName:g.name,
+                playTime:g.playtime_forever,
+                imgIconUrl:g.img_icon_url!="" ? "http://media.steampowered.com/steamcommunity/public/images/apps/"+g.appid+"/"+g.img_icon_url+".jpg" : "",
+                imgLogoUrl:g.img_logo_url!="" ? "http://media.steampowered.com/steamcommunity/public/images/apps/"+g.appid+"/"+g.img_logo_url+".jpg" : "",
+                userList:[]
+            });
+            });
+        }
+    
+        var games_array = sending_array.map(function(g){
+            return JSON.parse(g);
+        });
+        games_array.forEach(async function(element){
+            var game = await gameService.getByName(element.gameName);
+            if(game){
+                game.userList.push(user.username);
+                await gameService.update(game._id,game);
+            }else{
+                element.userList.push(user.username);
+                await gameService.create(element);
+            }
+        });
         return {
             ...userWithoutHash,
             token
