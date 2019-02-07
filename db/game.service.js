@@ -3,7 +3,7 @@ const Game = db.Game;
 
 module.exports = {
     getAll,
-    getById,
+    getByName,
     create,
     update,
     getAllUserByGame,
@@ -11,15 +11,15 @@ module.exports = {
 };
 
 async function getAll() {
-    return await Game.find().select('-id');
+    return await Game.find().select('-userList');
 }
 
-async function getAllUserByGame() {
+async function getAllUserByGame(id) {
     return await Game.findById(id).select('userList');
 }
 
-async function getById(id) {
-    return await Game.findById(id).select('-id');
+async function getByName(name) {
+    return await Game.findOne({ gameName: name }).select('-userList');
 }
 
 async function create(Param) {
