@@ -25,7 +25,7 @@ async function authenticate({ username, password }) {
         if(user.steamAccount){
             var options = {
                 method: 'GET',
-                uri: "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=479387AA962E63341F51611AD7D193E3&include_appinfo=1&steamid="+userParam.steamAccount+"&format=json",
+                uri: "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=479387AA962E63341F51611AD7D193E3&include_appinfo=1&steamid="+user.steamAccount+"&format=json",
                 json: true // Automatically parses the JSON string in the response
             };
             var resp = await request(options);
