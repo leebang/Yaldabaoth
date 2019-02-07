@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 
 import { userActions } from '../_actions';
 import { Segment, Grid, Form, Button, Message, Card, Icon, Image, Input, Dimmer, Loader } from 'semantic-ui-react';
-import {Helmet} from 'react-helmet';
 import { authentication } from '../_reducers/authentication.reducer';
 
 class UserProfilePage extends Component { 
     constructor(props) {
         super(props);
-
+        // branch inks
         this.state = {
+            userId: JSON.parse(localStorage.getItem('user'))._id,
             submitted: false,
             curUser: this.props.users.item
         };
@@ -21,8 +21,7 @@ class UserProfilePage extends Component {
     }
 
     componentDidMount() {
-        let theUser = JSON.parse(localStorage.getItem('user'));
-        this.props.dispatch(userActions.getOneUser(theUser._id));
+        this.props.dispatch(userActions.getOneUser(this.state.userId));
     }
 
     componentWillReceiveProps(nextProps) {
@@ -41,21 +40,37 @@ class UserProfilePage extends Component {
     }
 
     handleSubmit(event) {
+        // TODO:
+        // hash password in front end before send to db
+
         event.preventDefault();
         this.setState( {submitted: true} );
         const { curUser } = this.state;
         const { dispatch } = this.props;
+        console.log(curUser);
         dispatch(userActions.updateUser(curUser));
+        this.setState({curUser: this.props.users.item});
+        // if(this.props.users.error){
+        //     console.log("please get msg");
+        //     this.props.dispatch(userActions.getOneUser(this.state.userId));
+        // }
+        // if (curUser.newpassword == curUser.newPasswordCompare) {
+        //     dispatch(userActions.updateUser(curUser));
+        // } else {
+        //     this.setState({ wrongPassword: true });
+        // }
+        
     }
 
     render() {
         const user = this.state.curUser;
+        const { submitted } = this.state; 
+        const { msg } = this.props;
         return (
         <div>
-            {user  ? 
+            {user ? 
             <Segment>
             <Grid divided='vertically'>
-                    <Grid.Row columns={2}>
                         <Grid.Column width={5} centered={"true"}>
                             <Card centered>
                                 <Image src='../../../samples/sampleHead.png' />
@@ -82,21 +97,26 @@ class UserProfilePage extends Component {
                         <label>Nickname</label>
                         <Input name="nickName" value={user.nickName} onChange={this.handleChange}/>
                         </Form.Field>
-                        
                         <Form.Group>
                         <Form.Field>
                         <label>Old Password</label>
-                        <input placeholder='Old Password' />
+                        <Input name="password" onChange={this.handleChange} placeholder='Old Password'/>
+                        {/* {submitted && !user.nickName &&
+                            <div className="help-block">Nickname is required</div>
+                                } */}
                         </Form.Field>
                         <Form.Field>
                         <label>New Password</label>
-                        <input placeholder='New Password' />
+                        <Input name="newPassword" onChange={this.handleChange} placeholder='New Password' />
                         </Form.Field>
                         <Form.Field>
                         <label>New Password</label>
-                        <input placeholder='New Password' />
+                        <input name="newPasswordCompare" onChange={this.handleChange} placeholder='New Password'/>
                         </Form.Field>
                         </Form.Group>
+
+                        {msg &&
+                        <Message color='red'>{msg}</Message>}
 
                         <Form.Field width={6}>
                         <label>Steam Account</label>
@@ -123,8 +143,6 @@ class UserProfilePage extends Component {
                         <Button type='submit'>Submit</Button>
                     </Form>
                     </Grid.Column>
-
-                    </Grid.Row>
             </Grid>
             </Segment>
         
