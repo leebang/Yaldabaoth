@@ -35,7 +35,7 @@ class GamesContent extends Component {
         }
         return (
             <div>
-            <Grid>
+            <Grid centered>
                 <Grid.Column computer={5} mobile={16} largeScreen={5} widescreen={5} tablet={16}>
                     <Menu vertical size={'large'} fluid>
                         {localStorage.getItem('user') &&
@@ -52,10 +52,10 @@ class GamesContent extends Component {
 
                         <Menu.Item>
                         {(games.items&&activeItem=='explore') &&
-                        <SearchBar source={games.items.map((g)=>{return {title:g.gameName}})} onSearchSelect={this.handleSearchSelect} size={'mini'} fluid/>
+                        <SearchBar source={games.items.map((g)=>{return {title:g.gameName}})} onSearchSelect={this.handleSearchSelect} size={'large'} fluid/>
                         }
                         {(user_games&&activeItem=='mine') &&
-                        <SearchBar source={user_games.map((g)=>{return {title:g.gameName}})} onSearchSelect={this.handleSearchSelect} size={'mini'} fluid/>
+                        <SearchBar source={user_games.map((g)=>{return {title:g.gameName}})} onSearchSelect={this.handleSearchSelect} size={'large'} fluid/>
                         }
                         </Menu.Item>
                     </Menu>
