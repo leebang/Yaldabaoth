@@ -36,7 +36,7 @@ class GamesContent extends Component {
         return (
             <div>
             <Grid>
-                <Grid.Column computer={5} mobile={16} largeScreen={5} widescreen={5} tablet={5}>
+                <Grid.Column computer={5} mobile={16} largeScreen={5} widescreen={5} tablet={16}>
                     <Menu vertical size={'large'} fluid>
                         {localStorage.getItem('user') &&
                             <Menu.Item name='mine' active={activeItem === 'mine'} onClick={this.handleItemClick}>
@@ -60,7 +60,7 @@ class GamesContent extends Component {
                         </Menu.Item>
                     </Menu>
                 </Grid.Column>
-                <Grid.Column computer={11} mobile={16} largeScreen={11} widescreen={11} tablet={11}>
+                <Grid.Column computer={11} mobile={16} largeScreen={11} widescreen={11} tablet={16}>
                     <Segment>
                         {(users.games&&(activeItem=='mine')) ?
                         <GameCards games={user_games}/>
