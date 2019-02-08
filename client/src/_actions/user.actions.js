@@ -9,6 +9,7 @@ export const userActions = {
     register,
     getAllUser,
     getOneUser,
+    getUserAllGamesById,
     updateUser,
     delete: _delete
 };
@@ -95,6 +96,22 @@ function getOneUser(id) {
     function failure(id, error) { return { type: userConstants.GETONE_FAILURE, id, error } }
 }
 
+function getUserAllGamesById(id) {
+    return dispatch => {
+        dispatch(request());
+
+        userService.getAllGamesById(id)
+            .then(
+                games => dispatch(success(games)),
+                error => dispatch(failure(id, error.toString()))
+            );
+    };
+
+    function request(id) { return { type: userConstants.GETGAMES_REQUEST, id } }
+    function success(games) { return { type: userConstants.GETGAMES_SUCCESS, games } }
+    function failure(id, error) { return { type: userConstants.GETGAMES_FAILURE, id, error } }
+}
+
 function updateUser(user) {
     return dispatch => {
         // To request
@@ -117,6 +134,7 @@ function updateUser(user) {
     function success(user) { return { type: userConstants.UPDATE_SUCCESS, user } }
     function failure(error, user) { return { type: userConstants.UPDATE_FAILURE, error, user } }
 }
+
 
 
 // prefixed function name with underscore because delete is a reserved word in javascript

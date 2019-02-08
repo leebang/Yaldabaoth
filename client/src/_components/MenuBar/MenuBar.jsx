@@ -3,7 +3,7 @@ import { Menu, Icon, Image, Segment } from 'semantic-ui-react'
 import { LoginForm } from '../LoginForm'
 import { UserDropdown } from '../UserDropdown'
 import { Link } from 'react-router-dom';
-
+import website_icon from '../../../samples/temp.png';
 
 class MenuBar extends Component {
     constructor(props) {
@@ -26,7 +26,7 @@ class MenuBar extends Component {
                 <Segment inverted>
                 <Menu inverted stackable icon='labeled' size='small' secondary widths={6}>
                     <Menu.Item fitted >
-                        <Image src='../../../samples/temp.png' href="/" />
+                        <Image src={website_icon} href="/" />
                     </Menu.Item>
                     <Menu.Item 
                         name='Home' 

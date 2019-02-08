@@ -1,76 +1,77 @@
-import React, { Component } from 'react'
-import { Menu, Label, Image, Input, Grid, Segment, Card, Dimmer, Loader } from 'semantic-ui-react'
-import { gameActions } from '../../_actions';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-class GameCards extends Component {
-    constructor(props) {
-        super(props);
-        
-    }
-    render() {
-        return (
-            <div>
-                <Card.Group itemsPerRow={4}>
-                        {this.props.games.map((g) =>
-                            <Card key={g.gameName}>
-                                <Image src={g.imgLogoUrl=="" ? "../../../samples/no_image.png" : g.imgLogoUrl} />
-                                <Card.Content>
-                                <Card.Header>{g.gameName}</Card.Header>
-                                </Card.Content>
-                            </Card>
-                        )}
-                </Card.Group>
-            </div>
-        );
-    }
-}
-
+import { Grid, Label, Menu, Segment } from 'semantic-ui-react';
+import { gameActions, userActions } from '../../_actions';
+import { SearchBar } from '../SearchBar';
+import { GameCards } from '../GameCards';
 
 class GamesContent extends Component {
     constructor(props) {
         super(props);
-        this.state = { activeItem: 'mine' }
+        this.state = { 
+            activeItem: 'explore',
+            search_select: '' 
+        }
     }
 
     componentDidMount() {
         this.props.dispatch(gameActions.getAllGames());
+        if(localStorage.getItem('user')){
+            this.props.dispatch(userActions.getUserAllGamesById(this.props.authentication.user._id));
+        }
     }
 
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+    handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
+    handleSearchSelect = (select) => {
+        this.setState({search_select: select});
+    }
 
     render() {
         const { activeItem } = this.state;
-        const { games } = this.props;
+        const { games, users } = this.props;
+        if(users.games){
+            var user_games = users.games.gamesList.map(function(e){return JSON.parse(e)});
+        }
         return (
             <div>
             <Grid>
-                <Grid.Column width={3}>
-                    <Menu vertical>
-                        <Menu.Item name='mine' active={activeItem === 'mine'} onClick={this.handleItemClick}>
-                        My Games
-                        </Menu.Item>
-
+                <Grid.Column computer={5} mobile={16} largeScreen={5} widescreen={5} tablet={5}>
+                    <Menu vertical size={'large'} fluid>
+                        {localStorage.getItem('user') &&
+                            <Menu.Item name='mine' active={activeItem === 'mine'} onClick={this.handleItemClick}>
+                            {users.games&&
+                            <Label color='teal'>{users.games.gamesList.length}</Label>
+                            }
+                            My Games
+                            </Menu.Item>
+                        }
                         <Menu.Item name='explore' active={activeItem === 'explore'} onClick={this.handleItemClick}>
                         Explore Games
                         </Menu.Item>
 
                         <Menu.Item>
-                        <Input icon='search' placeholder='Search games...' />
+                        {(games.items&&activeItem=='explore') &&
+                        <SearchBar source={games.items.map((g)=>{return {title:g.gameName}})} onSearchSelect={this.handleSearchSelect} size={'mini'} fluid/>
+                        }
+                        {(user_games&&activeItem=='mine') &&
+                        <SearchBar source={user_games.map((g)=>{return {title:g.gameName}})} onSearchSelect={this.handleSearchSelect} size={'mini'} fluid/>
+                        }
                         </Menu.Item>
                     </Menu>
                 </Grid.Column>
-                <Grid.Column width={13}>
-                    {games.items ? 
+                <Grid.Column computer={11} mobile={16} largeScreen={11} widescreen={11} tablet={11}>
                     <Segment>
-                        {activeItem=='mine' && <GameCards games={games.items}/>}
-                        {activeItem=='explore' && <GameCards games={games.items}/>}
+                        {(users.games&&(activeItem=='mine')) ?
+                        <GameCards games={user_games}/>
+                        :<div></div>
+                        }
+
+                        {(games.items&&(activeItem=='explore')) ?
+                        <GameCards games={games.items}/>
+                        :<div></div>
+                        }
                     </Segment>
-                    :
-                    <Dimmer active inverted inline='centered'>
-                        <Loader size='large'>Loading</Loader>
-                    </Dimmer>
-                    }
                 </Grid.Column>
             </Grid>
             </div>
@@ -78,11 +79,14 @@ class GamesContent extends Component {
     }
 }
 function mapStateToProps(state) {
-    const { games } = state;
+    const { games, users, authentication } = state;
     return {
-        games
+        games,
+        authentication,
+        users
     };
 }
 
 const connectedGamesContent = connect(mapStateToProps)(GamesContent);
-export { connectedGamesContent as GamesContent }; 
+export { connectedGamesContent as GamesContent };
+ 

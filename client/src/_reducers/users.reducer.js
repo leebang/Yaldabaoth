@@ -29,6 +29,20 @@ export function users(state = {}, action) {
         error: action.error
       };
 
+      case userConstants.GETGAMES_REQUEST:
+      return {
+        loading: true
+      };
+    case userConstants.GETGAMES_SUCCESS:
+      return {
+        loading: false,
+        games: action.games
+      };
+    case userConstants.GETGAMES_FAILURE:
+      return { 
+        error: action.error
+      };v
+
     case userConstants.UPDATE_REQUEST:
       return {
         loading: true

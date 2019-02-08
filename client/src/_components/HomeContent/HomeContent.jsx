@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import { Container, Card, Image } from 'semantic-ui-react'
+import homebackground from '../../../samples/homeback.png'
+import { GameCards } from '../GameCards';
+import temp_game from '../../../samples/witcher3.jpg';
+import temp_user from '../../../samples/sampleHead.png';
 
 class HomeContent extends Component {
     constructor(props) {
@@ -10,52 +14,20 @@ class HomeContent extends Component {
     }
 
     render() {
-        const src = '../../../samples/image.jpg';
-        const src1 = '../../../samples/sampleHead.png';
+        const temp_games= [{gameName:'Witcher 3',imgLogoUrl:temp_game},
+                            {gameName:'Witcher 3',imgLogoUrl:temp_game},
+                            {gameName:'Witcher 3',imgLogoUrl:temp_game},
+                            {gameName:'Witcher 3',imgLogoUrl:temp_game},
+                            {gameName:'Witcher 3',imgLogoUrl:temp_game},
+                            {gameName:'Witcher 3',imgLogoUrl:temp_game}];
+        const src1 = temp_user;
         return (
             <div>
-            <div><Image src= '../../../samples/homeback.png' fluid/></div>
+            <div><Image src={homebackground} fluid/></div>
             <Container>
                 <h1></h1>
                 <h1>Today's Hot Pick</h1>
-                <Card.Group itemsPerRow={4}>
-                    <Card>
-                        <Image src={src} />
-                        <Card.Content>
-                        <Card.Header>Witcher 3</Card.Header>
-                        </Card.Content>
-                    </Card>
-                    <Card>
-                        <Image src={src} />
-                        <Card.Content>
-                        <Card.Header>Witcher 3</Card.Header>
-                        </Card.Content>
-                    </Card>
-                    <Card>
-                        <Image src={src} />
-                        <Card.Content>
-                        <Card.Header>Witcher 3</Card.Header>
-                        </Card.Content>
-                    </Card>
-                    <Card>
-                        <Image src={src} />
-                        <Card.Content>
-                        <Card.Header>Witcher 3</Card.Header>
-                        </Card.Content>
-                    </Card>
-                    <Card>
-                        <Image src={src} />
-                        <Card.Content>
-                        <Card.Header>Witcher 3</Card.Header>
-                        </Card.Content>
-                    </Card>
-                    <Card>
-                        <Image src={src} />
-                        <Card.Content>
-                        <Card.Header>Witcher 3</Card.Header>
-                        </Card.Content>
-                    </Card>
-                </Card.Group>
+                <GameCards games={temp_games} />
             </Container>
             <Container>
                 <h1></h1>

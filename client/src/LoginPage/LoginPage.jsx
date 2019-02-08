@@ -3,16 +3,7 @@ import { connect } from 'react-redux';
 import { userActions } from '../_actions';
 import { MenuBar } from '../_components/MenuBar'
 import { HomeContent } from '../_components/HomeContent'
-
-class NoEntryGames extends React.Component {
-    render() {
-        return (
-            <div>
-                <h1>YOU HAVEN'T LOGIN BITCH</h1>
-            </div>
-        );
-    }
-}
+import { GamesContent } from '../_components/GamesContent/GamesContent';
 
 class NoEntryFriends extends React.Component {
     render() {
@@ -30,7 +21,7 @@ class LoginPage extends React.Component {
         return (
             <div>
             {menu=='Home' && <HomeContent />}
-            {menu=='Games' && <NoEntryGames />}
+            {menu=='Games' && <GamesContent />}
             {menu=='Friends' && <NoEntryFriends />}
             </div>
         );
