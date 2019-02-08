@@ -47,8 +47,10 @@ async function authenticate({ username, password }) {
         games_array.forEach(async function(element){
             var game = await gameService.getByName(element.gameName);
             if(game){
-                game.userList.push(user.username);
-                await gameService.update(game._id,game);
+                if(game.userList.includes(user.username)==false){
+                    game.userList.push(user.username);
+                    await gameService.update(game._id,game);
+                }
             }else{
                 element.userList.push(user.username);
                 await gameService.create(element);
@@ -112,8 +114,10 @@ async function create(userParam) {
     games_array.forEach(async function(element){
         var game = await gameService.getByName(element.gameName);
         if(game){
-            game.userList.push(userParam.username);
-            await gameService.update(game._id,game);
+            if(game.userList.includes(user.username)==false){
+                game.userList.push(user.username);
+                await gameService.update(game._id,game);
+            }
         }else{
             element.userList.push(userParam.username);
             await gameService.create(element);
