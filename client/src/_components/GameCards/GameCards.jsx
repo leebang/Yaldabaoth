@@ -10,7 +10,7 @@ class GameCards extends Component {
     render() {
         return (
             <div>
-                <Card.Group itemsPerRow={4}>
+                <Card.Group itemsPerRow={3}>
                         {this.props.games.map((g) =>
                             <Card key={g.gameName}>
                                 <Image src={g.imgLogoUrl=="" ? no_image : g.imgLogoUrl} />
