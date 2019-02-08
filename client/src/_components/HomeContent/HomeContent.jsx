@@ -32,7 +32,7 @@ class HomeContent extends Component {
             <Container>
                 <h1></h1>
                 <h1>People You Might Like</h1>
-                <Card.Group itemsPerRow={4}>
+                <Card.Group itemsPerRow={3}>
                     <Card>
                         <Image src={src1} />
                         <Card.Content>
