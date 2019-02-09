@@ -1,40 +1,21 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { userActions } from '../_actions';
 import { FriendsContent } from '../_components/FriendsContent';
 import { GamesContent } from '../_components/GamesContent';
 import { HomeContent } from '../_components/HomeContent';
 
-
 class HomePage extends React.Component {
-    componentDidMount() {
-        
-    }
-
-    handleDeleteUser(id) {
-        return (e) => this.props.dispatch(userActions.delete(id));
-    }
-
+   
     render() {
-        const { menu } = this.props;
+        const { activeItem } = this.props;
         return (
             <div>
-            {menu=='Home' && <HomeContent />}
-            {menu=='Games' && <GamesContent />}
-            {menu=='Friends' && <FriendsContent />}
+                {activeItem=='Home' && <HomeContent />}
+                {activeItem=='Games' && <GamesContent />}
+                {activeItem=='Friends' && <FriendsContent />}
             </div>
         );
     }
 }
 
-function mapStateToProps(state) {
-    const { users, authentication } = state;
-    const { user } = authentication;
-    return {
-        user,
-        users
-    };
-}
+export { HomePage as HomePage };
 
-const connectedHomePage = connect(mapStateToProps)(HomePage);
-export { connectedHomePage as HomePage };

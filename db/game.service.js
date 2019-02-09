@@ -6,16 +6,11 @@ module.exports = {
     getByName,
     create,
     update,
-    getAllUserByGame,
     delete: _delete
 };
 
 async function getAll() {
     return await Game.find().select('-userList');
-}
-
-async function getAllUserByGame(id) {
-    return await Game.findById(id).select('userList');
 }
 
 async function getByName(name) {

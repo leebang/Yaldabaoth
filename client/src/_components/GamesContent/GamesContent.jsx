@@ -4,13 +4,13 @@ import { Grid, Label, Menu, Segment } from 'semantic-ui-react';
 import { gameActions, userActions } from '../../_actions';
 import { SearchBar } from '../SearchBar';
 import { GameCards } from '../GameCards';
+import { history } from '../../_helpers';
 
 class GamesContent extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            activeItem: 'explore',
-            search_select: '' 
+            activeItem: 'explore'
         }
     }
 
@@ -24,7 +24,7 @@ class GamesContent extends Component {
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
     handleSearchSelect = (select) => {
-        this.setState({search_select: select});
+        history.push("/gameprofile/"+select);
     }
 
     render() {
@@ -35,7 +35,7 @@ class GamesContent extends Component {
         }
         return (
             <div>
-            <Grid centered>
+            <Grid>
                 <Grid.Column computer={5} mobile={16} largeScreen={5} widescreen={5} tablet={16}>
                     <Menu vertical size={'large'} fluid>
                         {authentication.loggedIn &&

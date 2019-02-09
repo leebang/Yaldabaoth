@@ -3,7 +3,6 @@ import config from 'config';
 export const gameService = {
     getAllGames,
     getByName,
-    getAllUserByGame,
     update
 };
 
@@ -20,16 +19,7 @@ function getByName(name) {
         method: 'GET'
     };
 
-    return fetch(`${config.apiUrl}/users/${name}`, requestOptions).then(handleResponse);
-}
-
-function getAllUserByGame(id) {
-    const requestOptions = {
-        method: 'GET',
-        headers: authHeader()
-    };
-
-    return fetch(`${config.apiUrl}/${id}/users`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/games/${name}`, requestOptions).then(handleResponse);
 }
 
 function update(game) {
@@ -38,7 +28,7 @@ function update(game) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(game)
     };
-    return fetch(`${config.apiUrl}/users/${game._id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/games/${game._id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

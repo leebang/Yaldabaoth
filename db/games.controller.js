@@ -5,7 +5,6 @@ const gameService = require('./game.service');
 // routes
 router.post('/registergame', register);
 router.get('/', getAll);
-router.get('/:id/users', getAllUserByGame);
 router.get('/:name', getByName);
 router.put('/:id', update);
 router.delete('/:id', _delete);
@@ -22,12 +21,6 @@ function register(req, res, next) {
 function getAll(req, res, next) {
     gameService.getAll()
         .then(games => res.json(games))
-        .catch(err => next(err));
-}
-
-function getAllUserByGame(req, res, next) {
-    gameService.getAllUserByGame(req.params.id)
-        .then(users => res.json(users))
         .catch(err => next(err));
 }
 

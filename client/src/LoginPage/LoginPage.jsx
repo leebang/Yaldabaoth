@@ -1,34 +1,22 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { userActions } from '../_actions';
-import { MenuBar } from '../_components/MenuBar'
-import { HomeContent } from '../_components/HomeContent'
-import { GamesContent } from '../_components/GamesContent/GamesContent';
+import { FriendsContent } from '../_components/FriendsContent';
+import { GamesContent } from '../_components/GamesContent';
+import { HomeContent } from '../_components/HomeContent';
 
-class NoEntryFriends extends React.Component {
+class LoginPage extends React.Component {
+
     render() {
+        const { activeItem } = this.props;
         return (
             <div>
-                <h1>YOU HAVEN'T LOGIN BITCH</h1>
+                {activeItem=='Home' && <HomeContent />}
+                {activeItem=='Games' && <GamesContent />}
+                {activeItem=='Friends' && <FriendsContent />}
             </div>
         );
     }
 }
 
-class LoginPage extends React.Component {  
-    render() {
-        const { menu } = this.props;
-        return (
-            <div>
-            {menu=='Home' && <HomeContent />}
-            {menu=='Games' && <GamesContent />}
-            {menu=='Friends' && <NoEntryFriends />}
-            </div>
-        );
-    }
-}
+export { LoginPage as LoginPage };
 
-
-
-
-export { LoginPage as LoginPage }; 
+ 

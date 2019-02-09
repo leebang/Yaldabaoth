@@ -21,7 +21,7 @@ export function games(state = {}, action) {
       };
     case gameConstants.GETONE_SUCCESS:
       return {
-        loading: false,
+        loaded: true,
         item: action.game
       };
     case gameConstants.GETONE_FAILURE:

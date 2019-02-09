@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Button, Card, Dimmer, Form, Grid, Icon, Image, Input, Loader, Message, Segment } from 'semantic-ui-react';
 import { userActions } from '../_actions';
 
-
 class UserSettingPage extends Component { 
     constructor(props) {
         super(props);
@@ -162,3 +161,4 @@ function mapStateToProps(state) {
 
 const connectedUserSettingPage = connect(mapStateToProps)(UserSettingPage);
 export { connectedUserSettingPage as UserSettingPage };
+

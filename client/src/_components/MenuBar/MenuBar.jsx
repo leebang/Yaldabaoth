@@ -33,7 +33,7 @@ class MenuBar extends Component {
                         name='Home' 
                         active={activeItem === 'Home'} 
                         onClick={this.handleItemClick}
-                        as={Link} to="/"
+                        as={Link} to='/'
                     >
                     <Icon name='home' />
                     Home
@@ -42,7 +42,7 @@ class MenuBar extends Component {
                         name='Games'
                         active={activeItem === 'Games'}
                         onClick={this.handleItemClick} 
-                        as={Link} to="/"
+                        as={Link} to='/'
                     >
                     <Icon name='gamepad' />
                     Games
@@ -51,7 +51,7 @@ class MenuBar extends Component {
                         name='Friends'
                         active={activeItem === 'Friends'}
                         onClick={this.handleItemClick}
-                        as={Link} to="/"
+                        as={Link} to='/'
                     >
                     <Icon name='users' />
                     Friends
@@ -60,7 +60,7 @@ class MenuBar extends Component {
                         name='Radar'
                         active={activeItem === 'Radar'}
                         onClick={this.handleItemClick}
-                        as={Link} to="/"
+                        as={Link} to='/'
                     >
                     <Icon name='map marker alternate' />
                     Radar
