@@ -3,6 +3,7 @@ import { Menu, Icon, Image, Segment } from 'semantic-ui-react'
 import { LoginForm } from '../LoginForm'
 import { UserDropdown } from '../UserDropdown'
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import website_icon from '../../../samples/temp.png';
 
 class MenuBar extends Component {
@@ -20,7 +21,7 @@ class MenuBar extends Component {
 
     render() {
         const { activeItem } = this.state;
-        const { value, msg } = this.props; //value=true login value=false not login
+        const { authentication } = this.props;
         return (
             <div>
                 <Segment inverted>
@@ -65,7 +66,7 @@ class MenuBar extends Component {
                     Radar
                     </Menu.Item>
                     <Menu.Menu position='right'>
-                        {value ? <UserDropdown /> : <LoginForm msg={msg}/>}
+                        {authentication.loggedIn ? <UserDropdown /> : <LoginForm />}
                     </Menu.Menu>
                 </Menu>
                 </Segment>
@@ -74,4 +75,12 @@ class MenuBar extends Component {
     }
 }
 
-export { MenuBar as MenuBar }; 
+function mapStateToProps(state) {
+    const { authentication } = state;
+    return {
+        authentication
+    };
+}
+
+const connectedMenuBar = connect(mapStateToProps)(MenuBar);
+export { connectedMenuBar as MenuBar }; 

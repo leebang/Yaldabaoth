@@ -16,7 +16,7 @@ class GamesContent extends Component {
 
     componentDidMount() {
         this.props.dispatch(gameActions.getAllGames());
-        if(localStorage.getItem('user')){
+        if(this.props.authentication.loggedIn){
             this.props.dispatch(userActions.getUserAllGamesById(this.props.authentication.user._id));
         }
     }
@@ -29,7 +29,7 @@ class GamesContent extends Component {
 
     render() {
         const { activeItem } = this.state;
-        const { games, users } = this.props;
+        const { games, authentication, users } = this.props;
         if(users.games){
             var user_games = users.games.gamesList.map(function(e){return JSON.parse(e)});
         }
@@ -38,7 +38,7 @@ class GamesContent extends Component {
             <Grid centered>
                 <Grid.Column computer={5} mobile={16} largeScreen={5} widescreen={5} tablet={16}>
                     <Menu vertical size={'large'} fluid>
-                        {localStorage.getItem('user') &&
+                        {authentication.loggedIn &&
                             <Menu.Item name='mine' active={activeItem === 'mine'} onClick={this.handleItemClick}>
                             {users.games&&
                             <Label color='teal'>{users.games.gamesList.length}</Label>

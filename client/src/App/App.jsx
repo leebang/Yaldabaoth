@@ -12,16 +12,12 @@ import { UserSettingPage } from '../UserSettingPage';
 import { MenuBar } from '../_components/MenuBar'
 import { Segment } from 'semantic-ui-react';
 import { Helmet } from 'react-helmet';
+import { GameProfilePage} from '../GameProfilePage';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
 
-        const { dispatch } = this.props;
-        history.listen((location, action) => {
-            // clear alert on location change
-            dispatch(alertActions.clear());
-        });
         this.state = {     
             activeItem: 'Home'
         }; 
@@ -42,11 +38,12 @@ class App extends React.Component {
                 </Helmet>
                 <Router history={history}>
                     <Segment inverted>
-                        <MenuBar value={localStorage.getItem('user')? true:false} msg={alert.message} onMenuBar={this.handleTag}/>
-                        <PrivateRoute exact path="/" component={HomePage} msg={alert.message} menu={activeItem}/>
-                        <Route path="/login" render={()=><LoginPage msg={alert.message} menu={activeItem} />}/>
-                        <Route path="/register" render={()=><RegisterPage msg={alert.message}/>}/>
-                        <Route path="/profile" render={()=><UserSettingPage msg={alert.message}/>}/>
+                        <MenuBar onMenuBar={this.handleTag}/>
+                        <PrivateRoute exact path="/" component={HomePage} menu={activeItem}/>
+                        <Route path="/login" render={()=><LoginPage menu={activeItem} />}/>
+                        <Route path="/register" component={RegisterPage} />
+                        <Route path="/setting" component={UserSettingPage} />
+                        <Route path="/gameprofile/:gameName" component={GameProfilePage}/>
                     </Segment>
                 </Router>  
             </div>  

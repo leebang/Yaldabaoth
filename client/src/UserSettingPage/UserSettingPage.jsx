@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import { Button, Card, Dimmer, Form, Grid, Icon, Image, Input, Loader, Message, Segment } from 'semantic-ui-react';
 import { userActions } from '../_actions';
-import { Segment, Grid, Form, Button, Message, Card, Icon, Image, Input, Dimmer, Loader } from 'semantic-ui-react';
-import { authentication } from '../_reducers/authentication.reducer';
+
 
 class UserSettingPage extends Component { 
     constructor(props) {
         super(props);
         
         this.state = {
-            userId: JSON.parse(localStorage.getItem('user'))._id,
             submitted: false,
             curUser: this.props.users.item
         };
@@ -21,7 +18,7 @@ class UserSettingPage extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(userActions.getOneUser(this.state.userId));
+        this.props.dispatch(userActions.getOneUser(this.props.authentication.user._id));
     }
 
     componentWillReceiveProps(nextProps) {
@@ -64,7 +61,7 @@ class UserSettingPage extends Component {
     render() {
         const user = this.state.curUser;
         const { submitted } = this.state; 
-        const { msg } = this.props;
+        const { alert } = this.props;
         return (
         <div>
             {user ? 
@@ -91,6 +88,8 @@ class UserSettingPage extends Component {
 
 
                     <Grid.Column width={11}>
+                    {alert.message &&
+                        <Message color='yellow' header='Password Error'>{alert.message}</Message>}
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Field width={6}>
                         <label>Nickname</label>
@@ -110,9 +109,6 @@ class UserSettingPage extends Component {
                         <input name="newPasswordCompare" onChange={this.handleChange} placeholder='New Password'/>
                         </Form.Field>
                         </Form.Group>
-
-                        {msg &&
-                        <Message color='yellow' header='Password Error'>{msg}</Message>}
 
                         <Form.Field width={6}>
                         <label>Steam Account</label>
@@ -156,9 +152,11 @@ class UserSettingPage extends Component {
 }
 
 function mapStateToProps(state) {
-    const { users } = state;
+    const { users, alert, authentication } = state;
     return {
-        users
+        users,
+        authentication,
+        alert
     };
 }
 

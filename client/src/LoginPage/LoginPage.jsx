@@ -17,7 +17,7 @@ class NoEntryFriends extends React.Component {
 
 class LoginPage extends React.Component {  
     render() {
-        const { msg, menu } = this.props;
+        const { menu } = this.props;
         return (
             <div>
             {menu=='Home' && <HomeContent />}

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { } from 'semantic-ui-react';
 import { userActions } from '../_actions';
 import { FriendsContent } from '../_components/FriendsContent';
 import { GamesContent } from '../_components/GamesContent';
@@ -9,7 +8,7 @@ import { HomeContent } from '../_components/HomeContent';
 
 class HomePage extends React.Component {
     componentDidMount() {
-        this.props.dispatch(userActions.getAllUser());
+        
     }
 
     handleDeleteUser(id) {
@@ -17,7 +16,7 @@ class HomePage extends React.Component {
     }
 
     render() {
-        const { user, users, msg, menu } = this.props;
+        const { menu } = this.props;
         return (
             <div>
             {menu=='Home' && <HomeContent />}

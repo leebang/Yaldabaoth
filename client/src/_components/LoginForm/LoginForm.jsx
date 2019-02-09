@@ -4,7 +4,6 @@ import { userActions } from '../../_actions';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-
 class LoginForm extends Component {
     constructor(props) {
         super(props);
@@ -45,7 +44,7 @@ class LoginForm extends Component {
 
 
     render() {
-        const { loggingIn, msg } = this.props;
+        const { loggingIn, alert } = this.props;
         const { username, password, submitted} = this.state;
         return (
             <div>
@@ -57,8 +56,8 @@ class LoginForm extends Component {
                     <Modal.Header>Welcome!</Modal.Header>
                     <Modal.Content>
                     <Modal.Description>
-                    {msg &&
-                        <Message color={msg=='Registration successful' ? 'green' : 'red'}>{msg}</Message>}
+                    {(alert.message&&alert.message.includes('exist')==false) &&
+                        <Message color={alert.message=='Registration successful' ? 'green' : 'red'}>{alert.message}</Message>}
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Field>
                             <label htmlFor="username">Username</label>
@@ -90,8 +89,10 @@ class LoginForm extends Component {
 
 function mapStateToProps(state) {
     const { loggingIn } = state.authentication;
+    const { alert } = state; 
     return {
-        loggingIn
+        loggingIn,
+        alert
     };
 }
 

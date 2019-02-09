@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
 import { userActions } from '../_actions';
 
-
-
 class RegisterPage extends React.Component {
     constructor(props) {
         super(props);
@@ -47,7 +45,7 @@ class RegisterPage extends React.Component {
     }
 
     render() {
-        const { registering, msg } = this.props;
+        const { registering, alert } = this.props;
         const { user, submitted } = this.state;
         return (
             <div>
@@ -55,8 +53,8 @@ class RegisterPage extends React.Component {
             <Grid.Row></Grid.Row>
                 <Grid.Column>
                     <Segment inverted color='black'>
-                        {msg &&
-                        <Message color='red'>{msg && msg!='Username or password is incorrect'}</Message>}
+                        {alert.message &&
+                        <Message color='red'>{alert.message}</Message>}
                         <h1>Register</h1>
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Field>
@@ -105,8 +103,10 @@ class RegisterPage extends React.Component {
 
 function mapStateToProps(state) {
     const { registering } = state.registration;
+    const { alert } = state;
     return {
-        registering
+        registering,
+        alert
     };
 }
 

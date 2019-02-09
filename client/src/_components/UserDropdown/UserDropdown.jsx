@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Dropdown, Icon, Button, Segment } from 'semantic-ui-react';
 import { userActions } from '../../_actions';
-
+import { connect } from 'react-redux';
 
 class UserDropdown extends Component {  
     constructor(props) {
@@ -12,18 +12,18 @@ class UserDropdown extends Component {
     }
 
     handleLogout(e) {
-        const { dispatch } = this.props;
-        dispatch(userActions.logout());
+        this.props.dispatch(userActions.logout());
     }
 
     render() {
+        const { authentication } = this.props;
         return (
             <div>
                 <Segment inverted>
                 <Icon name='user' />
-                <Dropdown inline text={JSON.parse(localStorage.getItem('user')).nickName} pointing='top left'>
+                <Dropdown inline text={authentication.user.nickName} pointing='top left'>
                     <Dropdown.Menu>
-                        <Dropdown.Item as={ Link } to='/profile'>Profile</Dropdown.Item>
+                        <Dropdown.Item as={ Link } to='/setting'>Settings</Dropdown.Item>
                         <Dropdown.Item>
                         <Button secondary onClick={this.handleLogout}>
                             <Link to="/login" style={{color:'white'}}>Logout</Link>
@@ -37,7 +37,12 @@ class UserDropdown extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    const { authentication } = state;
+    return {
+        authentication
+    };
+}
 
-
-
-export { UserDropdown as UserDropdown }; 
+const connectedUserDropdown = connect(mapStateToProps)(UserDropdown);
+export { connectedUserDropdown as UserDropdown }; 
