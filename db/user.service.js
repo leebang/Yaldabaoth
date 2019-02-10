@@ -102,7 +102,7 @@ async function create(userParam) {
             imgIconUrl:g.img_icon_url!="" ? "http://media.steampowered.com/steamcommunity/public/images/apps/"+g.appid+"/"+g.img_icon_url+".jpg" : "",
             imgLogoUrl:g.img_logo_url!="" ? "http://media.steampowered.com/steamcommunity/public/images/apps/"+g.appid+"/"+g.img_logo_url+".jpg" : "",
             userList:[]
-        });
+            });
         });
     }
     user.gamesList=sending_array.slice();

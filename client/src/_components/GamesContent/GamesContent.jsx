@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Label, Menu, Segment } from 'semantic-ui-react';
+import { Grid, Label, Menu, Segment, Loader } from 'semantic-ui-react';
 import { gameActions, userActions } from '../../_actions';
 import { SearchBar } from '../SearchBar';
 import { GameCards } from '../GameCards';
@@ -64,12 +64,12 @@ class GamesContent extends Component {
                     <Segment>
                         {(users.games&&(activeItem=='mine')) ?
                         <GameCards games={user_games}/>
-                        :<div></div>
+                        :<Loader active size={"tiny"}/>
                         }
 
                         {(games.items&&(activeItem=='explore')) ?
                         <GameCards games={games.items}/>
-                        :<div></div>
+                        :<Loader active size={"tiny"}/>
                         }
                     </Segment>
                 </Grid.Column>

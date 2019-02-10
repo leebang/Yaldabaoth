@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Card, Dimmer, Form, Grid, Icon, Image, Input, Loader, Message, Segment } from 'semantic-ui-react';
+import { Button, Card, Form, Grid, Icon, Image, Input, Loader, Message, Segment } from 'semantic-ui-react';
 import { userActions } from '../_actions';
 
 class UserSettingPage extends Component { 
@@ -138,11 +138,7 @@ class UserSettingPage extends Component {
             </Segment>
         
             :
-
-            <Dimmer active inverted inline='centered'>
-                <Loader size='large'>Loading</Loader>
-            </Dimmer>
-            
+            <Loader active />
             }
 
         </div>
