@@ -3,9 +3,9 @@ const router = express.Router();
 const gameService = require('./game.service');
 
 // routes
-router.post('/registergame', register);
-router.get('/', getAll);
-router.get('/:name', getByName);
+router.post('/register', register);
+router.get('/games', getAllGame);
+router.get('/:name', getGameInfoByGameName);
 router.put('/:id', update);
 router.delete('/:id', _delete);
 
@@ -18,13 +18,13 @@ function register(req, res, next) {
         .catch(err => next(err));
 }
 
-function getAll(req, res, next) {
+function getAllGame(req, res, next) {
     gameService.getAll()
         .then(games => res.json(games))
         .catch(err => next(err));
 }
 
-function getByName(req, res, next) {
+function getGameInfoByGameName(req, res, next) {
     gameService.getByName(req.params.name)
         .then(game => game ? res.json(game) : res.sendStatus(404))
         .catch(err => next(err));

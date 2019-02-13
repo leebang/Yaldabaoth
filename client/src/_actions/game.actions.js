@@ -3,54 +3,52 @@ import { gameService } from '../_services';
 import { history } from '../_helpers';
 
 export const gameActions = {
-    getAllGames,
-    getByName,
-    getAllUserByGame,
-    updateGame
+    getAllGame,
+    getGameInfoByGameName,
+    update
 };
 
-function getAllGames() {
+function getAllGame() {
     return dispatch => {
         dispatch(request());
 
-        gameService.getAllGames()
+        gameService.getAllGame()
             .then(
                 games => dispatch(success(games)),
                 error => dispatch(failure(error.toString()))
             );
     };
 
-    function request() { return { type: gameConstants.GETALL_REQUEST } }
-    function success(games) { return { type: gameConstants.GETALL_SUCCESS, games } }
-    function failure(error) { return { type: gameConstants.GETALL_FAILURE, error } }
+    function request() { return { type: gameConstants.GETALLGAME_REQUEST } }
+    function success(games) { return { type: gameConstants.GETALLGAME_SUCCESS, games } }
+    function failure(error) { return { type: gameConstants.GETALLGAME_FAILURE, error } }
 }
 
-function getByName(name) {
+function getGameInfoByGameName(name) {
     return dispatch => {
         dispatch(request());
 
-        gameService.getByName(name)
+        gameService.getGameInfoByGameName(name)
             .then(
                 game => dispatch(success(game)),
                 error => dispatch(failure(name, error.toString()))
             );
     };
 
-    function request(name) { return { type: gameConstants.GETONE_REQUEST, name } }
-    function success(game) { return { type: gameConstants.GETONE_SUCCESS, game } }
-    function failure(name, error) { return { type: gameConstants.GETONE_FAILURE, name, error } }
+    function request(name) { return { type: gameConstants.GETGAMEINFO_REQUEST, name } }
+    function success(game) { return { type: gameConstants.GETGAMEINFO_SUCCESS, game } }
+    function failure(name, error) { return { type: gameConstants.GETGAMEINFO_FAILURE, name, error } }
 }
 
-function updateGame(user) {
+function update(id) {
     return dispatch => {
         // To request
         dispatch(request());
 
-        gameService.update(user)
+        gameService.update(id)
             .then(
                 game => { 
                     dispatch(success(game));
-                    history.push('/');
                 },
                 error => {
                     dispatch(failure(error.toString()));
@@ -61,21 +59,5 @@ function updateGame(user) {
 
     function request() { return { type: gameConstants.UPDATE_REQUEST } }
     function success(game) { return { type: gameConstants.UPDATE_SUCCESS, game } }
-    function failure(error) { return { type: gameConstants.UPDATE_FAILURE, error } }
-}
-
-function getAllUserByGame(id) {
-    return dispatch => {
-        dispatch(request());
-
-        gameService.getAllUserByGame(id)
-            .then(
-                users => dispatch(success(users)),
-                error => dispatch(failure(id, error.toString()))
-            );
-    };
-
-    function request() { return { type: gameConstants.GETUSERLIST_REQUEST } }
-    function success(users) { return { type: gameConstants.GETUSERLIST_SUCCESS, users } }
-    function failure(id, error) { return { type: gameConstants.GETUSERLIST_FAILURE, id, error } }
+    function failure(error) { return { type: gameConstants.UPDATE_FAILURE, id, error } }
 }

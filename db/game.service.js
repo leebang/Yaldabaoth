@@ -2,18 +2,18 @@ const db = require('_helpers/db');
 const Game = db.Game;
 
 module.exports = {
-    getAll,
-    getByName,
+    getAllGame,
+    getGameInfoByGameName,
     create,
     update,
     delete: _delete
 };
 
-async function getAll() {
+async function getAllGame() {
     return await Game.find().select('-userList');
 }
 
-async function getByName(name) {
+async function getGameInfoByGameName(name) {
     return await Game.findOne({ gameName: name });
 }
 
@@ -41,6 +41,8 @@ async function update(id, Param) {
     Object.assign(game, Param);
 
     await game.save();
+
+    return await Game.findById(id);
 }
 
 async function _delete(id) {

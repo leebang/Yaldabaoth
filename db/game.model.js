@@ -8,7 +8,7 @@ const schema = new Schema({
     playTime: { type: String },
     imgIconUrl: { type: String },
     imgLogoUrl: { type: String },
-    userList: { type: [String] },
+    usersList: { type: [String] },
 });
 
 schema.set('toJSON', { virtuals: true });

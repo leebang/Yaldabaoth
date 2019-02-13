@@ -10,34 +10,34 @@ class GameProfilePage extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(gameActions.getByName(this.props.match.params.gameName));
+        this.props.dispatch(gameActions.getGameInfoByGameName(this.props.match.params.gameName));
     }
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
     render () {
-        const { games } = this.props;
+        const { game } = this.props;
         const { activeItem } = this.state;
         return (
             <div>
-                {games.item ?
+                {game.game ?
                 
                 <div>
                     <Grid centered>
-                        <Grid.Column computer={4} mobile={8} largeScreen={4} widescreen={4} tablet={6}>
+                        <Grid.Column computer={4} mobile={10} largeScreen={4} widescreen={4} tablet={6}>
                             <Segment>
-                                <Image src={games.item.imgLogoUrl=="" ? no_image : games.item.imgLogoUrl} size='medium'/>
+                                <Image src={game.game.imgLogoUrl=="" ? no_image : game.game.imgLogoUrl} size='medium'/>
                             </Segment>
                             <Segment textAlign={'center'}>
-                                <h1>{games.item.gameName}</h1>
+                                <h1>{game.game.gameName}</h1>
                                 <Statistic>
-                                    <Statistic.Value>{Math.floor(games.item.playTime/60)}</Statistic.Value>
+                                    <Statistic.Value>{Math.floor(game.game.playTime/60)}</Statistic.Value>
                                     <Statistic.Label>Hours Played</Statistic.Label>
                                 </Statistic>
                                 <p></p>
-                                <Button animated color={'blue'} size='mini' href={games.item.url}>
+                                <Button animated color={'blue'} size='mini' href={game.game.url}>
                                     <Button.Content visible>
-                                    <Image src={games.item.imgIconUrl=="" ? no_image : games.item.imgIconUrl} avatar />
+                                    <Image src={game.game.imgIconUrl=="" ? no_image : game.game.imgIconUrl} avatar />
                                     <span>View On Steam</span>
                                     </Button.Content>
                                     <Button.Content hidden>
@@ -70,9 +70,9 @@ class GameProfilePage extends Component {
                                 <Segment attached='bottom'>
                                 <Item.Group>
                                     <Item>
-                                    <Item.Image size='tiny' src={games.item.imgLogoUrl=="" ? no_image : games.item.imgLogoUrl} />
+                                    <Item.Image size='tiny' src={game.game.imgLogoUrl=="" ? no_image : game.game.imgLogoUrl} />
                                     <Item.Content>
-                                        <Item.Header as='a'>{games.item.userList[0]}</Item.Header>
+                                        <Item.Header as='a'>{game.game.userList[0]}</Item.Header>
                                         <Item.Meta>Description</Item.Meta>
                                         <Item.Description>
                                         some Description
@@ -94,9 +94,9 @@ class GameProfilePage extends Component {
 }
 
 function mapStateToProps(state) {
-    const { games } = state;
+    const { game } = state;
     return {
-        games
+        game
     };
 }
 

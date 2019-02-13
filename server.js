@@ -15,7 +15,7 @@ app.use('/users',jwt());
 
 // api routes
 app.use('/users', require('./db/users.controller'));
-app.use('/games', require('./db/games.controller'));
+app.use('/GameApi', require('./db/games.controller'));
 
 // global error handler
 app.use(errorHandler);

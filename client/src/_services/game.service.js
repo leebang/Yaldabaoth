@@ -1,25 +1,25 @@
 import config from 'config';
 
 export const gameService = {
-    getAllGames,
-    getByName,
+    getAllGame,
+    getGameInfoByGameName,
     update
 };
 
-function getAllGames() {
+function getAllGame() {
     const requestOptions = {
         method: 'GET'
     };
 
-    return fetch(`${config.apiUrl}/games`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/GameApi/games`, requestOptions).then(handleResponse);
 }
 
-function getByName(name) {
+function getGameInfoByGameName(name) {
     const requestOptions = {
         method: 'GET'
     };
 
-    return fetch(`${config.apiUrl}/games/${name}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/GameApi/${name}`, requestOptions).then(handleResponse);
 }
 
 function update(game) {
@@ -28,7 +28,8 @@ function update(game) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(game)
     };
-    return fetch(`${config.apiUrl}/games/${game._id}`, requestOptions).then(handleResponse);
+    
+    return fetch(`${config.apiUrl}/GameApi/${game._id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

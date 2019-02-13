@@ -1,30 +1,29 @@
 import { gameConstants } from '../_constants';
 
-export function games(state = {}, action) {
+export function game(state = {}, action) {
   switch (action.type) {
-    case gameConstants.GETALL_REQUEST:
+    case gameConstants.GETALLGAME_REQUEST:
       return {
         loading: true
       };
-    case gameConstants.GETALL_SUCCESS:
+    case gameConstants.GETALLGAME_SUCCESS:
       return {
-        items: action.games
+        games: action.games
       };
-    case gameConstants.GETALL_FAILURE:
+    case gameConstants.GETALLGAME_FAILURE:
       return { 
         error: action.error
       };
 
-    case gameConstants.GETONE_REQUEST:
+    case gameConstants.GETGAMEINFO_REQUEST:
       return {
         loading: true
       };
-    case gameConstants.GETONE_SUCCESS:
+    case gameConstants.GETGAMEINFO_SUCCESS:
       return {
-        loaded: true,
-        item: action.game
+        game: action.game
       };
-    case gameConstants.GETONE_FAILURE:
+    case gameConstants.GETGAMEINFO_FAILURE:
       return { 
         error: action.error
       };
@@ -35,25 +34,13 @@ export function games(state = {}, action) {
       };
     case gameConstants.UPDATE_SUCCESS:
       return {
-        item: action.user
+        game: action.game
       };
     case gameConstants.UPDATE_FAILURE:
       return { 
         error: action.error
       };
 
-      case gameConstants.GETUSERLIST_REQUEST:
-      return {
-        loading: true
-      };
-    case gameConstants.GETUSERLIST_SUCCESS:
-      return {
-        usersList: action.users
-      };
-    case gameConstants.GETUSERLIST_FAILURE:
-      return { 
-        error: action.error
-      };
     default:
       return state
     }

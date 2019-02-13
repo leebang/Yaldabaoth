@@ -15,7 +15,7 @@ class GamesContent extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(gameActions.getAllGames());
+        this.props.dispatch(gameActions.getAllGame());
         if(this.props.authentication.loggedIn){
             this.props.dispatch(userActions.getUserAllGamesById(this.props.authentication.user._id));
         }
@@ -24,12 +24,12 @@ class GamesContent extends Component {
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
     handleSearchSelect = (select) => {
-        history.push("/gameprofile/"+select);
+        history.push("/game/"+select);
     }
 
     render() {
         const { activeItem } = this.state;
-        const { games, authentication, users } = this.props;
+        const { game, authentication, users } = this.props;
         if(users.games){
             var user_games = users.games.gamesList.map(function(e){return JSON.parse(e)});
         }
@@ -51,8 +51,8 @@ class GamesContent extends Component {
                         </Menu.Item>
 
                         <Menu.Item>
-                        {(games.items&&activeItem=='explore') &&
-                        <SearchBar source={games.items.map((g)=>{return {title:g.gameName}})} onSearchSelect={this.handleSearchSelect} size={'large'} fluid/>
+                        {(game.games&&activeItem=='explore') &&
+                        <SearchBar source={game.games.map((g)=>{return {title:g.gameName}})} onSearchSelect={this.handleSearchSelect} size={'large'} fluid/>
                         }
                         {(user_games&&activeItem=='mine') &&
                         <SearchBar source={user_games.map((g)=>{return {title:g.gameName}})} onSearchSelect={this.handleSearchSelect} size={'large'} fluid/>
@@ -67,8 +67,8 @@ class GamesContent extends Component {
                         :<Loader active size={"tiny"}/>
                         }
 
-                        {(games.items&&(activeItem=='explore')) ?
-                        <GameCards games={games.items}/>
+                        {(game.games&&(activeItem=='explore')) ?
+                        <GameCards games={game.games}/>
                         :<Loader active size={"tiny"}/>
                         }
                     </Segment>
@@ -79,9 +79,9 @@ class GamesContent extends Component {
     }
 }
 function mapStateToProps(state) {
-    const { games, users, authentication } = state;
+    const { game, users, authentication } = state;
     return {
-        games,
+        game,
         authentication,
         users
     };
