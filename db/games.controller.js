@@ -19,13 +19,13 @@ function register(req, res, next) {
 }
 
 function getAllGame(req, res, next) {
-    gameService.getAll()
+    gameService.getAllGame()
         .then(games => res.json(games))
         .catch(err => next(err));
 }
 
 function getGameInfoByGameName(req, res, next) {
-    gameService.getByName(req.params.name)
+    gameService.getGameInfoByGameName(req.params.name)
         .then(game => game ? res.json(game) : res.sendStatus(404))
         .catch(err => next(err));
 }
