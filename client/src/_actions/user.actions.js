@@ -8,9 +8,12 @@ export const userActions = {
     logout,
     register,
     getAllUser,
-    getOneUser,
-    getUserAllGamesById,
-    updateUser,
+    getUserInfoByUsername,
+    getUserGamesByUsername,
+    getUserFriendsByUsername,
+    getUserInvitationsByUsername,
+    getUserHashById,
+    update,
     delete: _delete
 };
 
@@ -75,44 +78,92 @@ function getAllUser() {
             );
     };
 
-    function request() { return { type: userConstants.GETALL_REQUEST } }
-    function success(users) { return { type: userConstants.GETALL_SUCCESS, users } }
-    function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
+    function request() { return { type: userConstants.GETALLUSER_REQUEST } }
+    function success(users) { return { type: userConstants.GETALLUSER_SUCCESS, users } }
+    function failure(error) { return { type: userConstants.GETALLUSER_FAILURE, error } }
 }
 
-function getOneUser(id) {
+function getUserInfoByUsername(username) {
     return dispatch => {
         dispatch(request());
 
-        userService.getById(id)
+        userService.getUserInfoByUsername(username)
             .then(
                 user => dispatch(success(user)),
-                error => dispatch(failure(id, error.toString()))
+                error => dispatch(failure(username, error.toString()))
             );
     };
 
-    function request(id) { return { type: userConstants.GETONE_REQUEST, id } }
-    function success(user) { return { type: userConstants.GETONE_SUCCESS, user } }
-    function failure(id, error) { return { type: userConstants.GETONE_FAILURE, id, error } }
+    function request(username) { return { type: userConstants.GETUSERINFO_REQUEST, username } }
+    function success(user) { return { type: userConstants.GETUSERINFO_SUCCESS, user } }
+    function failure(username, error) { return { type: userConstants.GETUSERINFO_FAILURE, username, error } }
 }
 
-function getUserAllGamesById(id) {
+function getUserGamesByUsername(username) {
     return dispatch => {
         dispatch(request());
 
-        userService.getAllGamesById(id)
+        userService.getUserGamesByUsername(username)
             .then(
                 games => dispatch(success(games)),
-                error => dispatch(failure(id, error.toString()))
+                error => dispatch(failure(username, error.toString()))
             );
     };
 
-    function request(id) { return { type: userConstants.GETGAMES_REQUEST, id } }
-    function success(games) { return { type: userConstants.GETGAMES_SUCCESS, games } }
-    function failure(id, error) { return { type: userConstants.GETGAMES_FAILURE, id, error } }
+    function request(username) { return { type: userConstants.GETUSERGAMES_REQUEST, username } }
+    function success(games) { return { type: userConstants.GETUSERGAMES_SUCCESS, games } }
+    function failure(username, error) { return { type: userConstants.GETUSERGAMES_FAILURE, username, error } }
 }
 
-function updateUser(user) {
+function getUserFriendsByUsername(username) {
+    return dispatch => {
+        dispatch(request());
+
+        userService.getUserFriendsByUsername(username)
+            .then(
+                friends => dispatch(success(friends)),
+                error => dispatch(failure(username, error.toString()))
+            );
+    };
+
+    function request(username) { return { type: userConstants.GETUSERFRIENDS_REQUEST, username } }
+    function success(friends) { return { type: userConstants.GETUSERFRIENDS_SUCCESS, friends } }
+    function failure(username, error) { return { type: userConstants.GETUSERFRIENDS_FAILURE, username, error } }
+}
+
+function getUserInvitationsByUsername(username) {
+    return dispatch => {
+        dispatch(request());
+
+        userService.getUserInvitationsByUsername(username)
+            .then(
+                invitations => dispatch(success(invitations)),
+                error => dispatch(failure(username, error.toString()))
+            );
+    };
+
+    function request(username) { return { type: userConstants.GETUSERINVITATIONS_REQUEST, username } }
+    function success(invitations) { return { type: userConstants.GETUSERINVITATIONS_SUCCESS, invitations } }
+    function failure(username, error) { return { type: userConstants.GETUSERINVITATIONS_FAILURE, username, error } }
+}
+
+function getUserHashById(id) {
+    return dispatch => {
+        dispatch(request(id));
+
+        userService.getUserHashById(id)
+            .then(
+                hash => dispatch(success(hash)),
+                error => dispatch(failure(username, error.toString()))
+            );
+    };
+
+    function request(id) { return { type: userConstants.GETUSERHASH_REQUEST, id } }
+    function success(hash) { return { type: userConstants.GETUSERHASH_SUCCESS, hash } }
+    function failure(id, error) { return { type: userConstants.GETUSERHASH_FAILURE, id, error } }
+}
+
+function update(user) {
     return dispatch => {
         // To request
         dispatch(request());
@@ -144,7 +195,7 @@ function _delete(id) {
 
         userService.delete(id)
             .then(
-                user => dispatch(success(id)),
+                id => dispatch(success(id)),
                 error => dispatch(failure(id, error.toString()))
             );
     };

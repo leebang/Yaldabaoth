@@ -5,15 +5,29 @@ const userService = require('./user.service');
 // routes
 router.post('/authenticate', authenticate);
 router.post('/register', register);
-router.get('/allusers', getAllUser);
-router.get('/current', getCurrent);
-router.get('/:id/allgames', getAllGamesById);
-router.get('/:id/allfriends', getAllFriendsById);
-router.get('/:id', getById);
+router.get('/users', getAllUser);
+// router.get('/current', getCurrent);
+router.get('/:name/games', getUserGamesByUsername);
+router.get('/:name/friends', getUserFriendsByUsername);
+router.get('/:name/info', getUserInfoByUsername);
+router.get('/:name/invitations', getUserInvitationsByUsername);
+router.get('/:id/hash', getUserHashById);
 router.put('/:id', update);
 router.delete('/:id', _delete);
 
 module.exports = router;
+
+function getUserHashById(req, res, next) {
+    userService.getUserHashById(req.params.id)
+    .then(user => user ? res.json(user) : res.status(400).json( {message: "Get hash failed."}))
+    .catch(err => next(err));
+}
+
+function getUserInvitationsByUsername(req, res, next) {
+    userService.getUserInvitationsByUsername(req.params.username)
+    .then(user => user ? res.json(user) : res.status(400).json( {message: "Get invitation failed."}))
+    .catch(err => next(err));
+}
 
 function authenticate(req, res, next) {
     userService.authenticate(req.body)
@@ -33,26 +47,26 @@ function getAllUser(req, res, next) {
         .catch(err => next(err));
 }
 
-function getCurrent(req, res, next) {
-    userService.getById(req.user.sub)
+// function getCurrent(req, res, next) {
+//     userService.getById(req.user.sub)
+//         .then(user => user ? res.json(user) : res.sendStatus(404))
+//         .catch(err => next(err));
+// }
+
+function getUserInfoByUsername(req, res, next) {
+    userService.getUserInfoByUsername(req.params.username)
         .then(user => user ? res.json(user) : res.sendStatus(404))
         .catch(err => next(err));
 }
 
-function getById(req, res, next) {
-    userService.getById(req.params.id)
+function getUserGamesByUsername(req, res, next) {
+    userService.getUserGamesByUsername(req.params.username)
         .then(user => user ? res.json(user) : res.sendStatus(404))
         .catch(err => next(err));
 }
 
-function getAllGamesById(req, res, next) {
-    userService.getAllGamesById(req.params.id)
-        .then(user => user ? res.json(user) : res.sendStatus(404))
-        .catch(err => next(err));
-}
-
-function getAllFriendsById(req, res, next) {
-    userService.getAllFriendsById(req.params.id)
+function getUserFriendsByUsername(req, res, next) {
+    userService.getUserFriendsByUsername(req.params.username)
         .then(user => user ? res.json(user) : res.sendStatus(404))
         .catch(err => next(err));
 }

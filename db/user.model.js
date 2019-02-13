@@ -3,13 +3,16 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema({
     nickName: { type: String, required: true },
-    username: { type: String, unique: true, required: true },
+    userName: { type: String, unique: true, required: true },
+    gender: { type: String, required: true },
+    description: { type: String, default: '' },
+    contactInfo: { type: String, default: '' },
+    userImage: { type: Buffer, default: '' },
     hash: { type: String, required: true },
     steamAccount: { type: String, required: true },
     gamesList: { type: [String] },
     friendsList: { type: [String] },
-    description: { type: String, default: '' },
-    contactInfo: { type: String, default: '' },
+    invitationsList: { type: [String] },
     createdDate: { type: Date, default: Date.now }
 });
 

@@ -11,10 +11,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 // use JWT auth to secure the api
-app.use('/users',jwt());
+app.use('/UserApi',jwt());
 
 // api routes
-app.use('/users', require('./db/users.controller'));
+app.use('/UserApi', require('./db/users.controller'));
 app.use('/GameApi', require('./db/games.controller'));
 
 // global error handler

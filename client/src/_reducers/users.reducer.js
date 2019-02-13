@@ -2,46 +2,86 @@ import { userConstants } from '../_constants';
 
 export function users(state = {}, action) {
   switch (action.type) {
-    case userConstants.GETALL_REQUEST:
+    case userConstants.GETALLUSER_REQUEST:
       return {
         loading: true
       };
-    case userConstants.GETALL_SUCCESS:
+    case userConstants.GETALLUSER_SUCCESS:
       return {
         items: action.users
       };
-    case userConstants.GETALL_FAILURE:
+    case userConstants.GETALLUSER_FAILURE:
       return { 
         error: action.error
       };
 
-    case userConstants.GETONE_REQUEST:
+    case userConstants.GETUSERINFO_REQUEST:
       return {
         loading: true
       };
-    case userConstants.GETONE_SUCCESS:
+
+    case userConstants.GETUSERINFO_SUCCESS:
       return {
-        loading: false,
         item: action.user
       };
-    case userConstants.GETONE_FAILURE:
+    case userConstants.GETUSERINFO_FAILURE:
       return { 
         error: action.error
       };
 
-      case userConstants.GETGAMES_REQUEST:
+    case userConstants.GETUSERGAMES_REQUEST:
       return {
         loading: true
       };
-    case userConstants.GETGAMES_SUCCESS:
+    case userConstants.GETUSERGAMES_SUCCESS:
       return {
-        loading: false,
         games: action.games
       };
-    case userConstants.GETGAMES_FAILURE:
+
+    case userConstants.GETUSERGAMES_FAILURE:
       return { 
         error: action.error
-      };v
+      };
+
+    case userConstants.GETUSERFRIENDS_REQUEST:
+      return {
+        loading: true
+      };
+    case userConstants.GGETUSERFRIENDS_SUCCESS:
+      return {
+        friends: action.friends
+      };
+    case userConstants.GETUSERFRIENDS_FAILURE:
+      return { 
+        error: action.error
+      };
+
+    case userConstants.GETUSERINVITATIONS_REQUEST:
+      return {
+        loading: true
+      };
+    case userConstants.GETUSERINVITATIONS_SUCCESS:
+      return {
+        invitations: action.invitations
+      };
+    case userConstants.GETUSERINVITATIONS_FAILURE:
+      return { 
+        error: action.error
+      };
+
+    case userConstants.GETUSERHASH_REQUEST:
+      return {
+        loading: true
+      };
+
+    case userConstants.GETUSERHASH_SUCCESS:
+      return {
+        hash: action.hash
+      };
+    case userConstants.GETUSERHASH_FAILURE:
+      return { 
+        error: action.error
+      };
 
     case userConstants.UPDATE_REQUEST:
       return {

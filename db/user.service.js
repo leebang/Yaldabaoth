@@ -9,9 +9,11 @@ const gameService = require('./game.service');
 module.exports = {
     authenticate,
     getAllUser,
-    getAllGamesById,
-    getAllFriendsById,
-    getById,
+    getUserInfoByUsername,
+    getUserGamesByUsername,
+    getUserFriendsByUsername,
+    getUserInvitationsByUsername,
+    getUserHashById,
     create,
     update,
     deleteUser: _delete
@@ -67,16 +69,24 @@ async function getAllUser() {
     return await User.find().select('-hash -gamesList -friendsList');
 }
 
-async function getAllGamesById(id) {
-    return await User.findById(id).select('gamesList');
+async function getUserInvitationsByUsername(username) {
+    return await User.findOne(username).select('invitationsList');
 }
 
-async function getAllFriendsById(id) {
-    return await User.findById(id).select('friendsList');
+async function getUserHashById(id) {
+    return await User.findById(id).select('hash');
 }
 
-async function getById(id) {
-    return await User.findById(id).select('-hash');
+async function getUserGamesByUsername(username) {
+    return await User.findOne(username).select('gamesList');
+}
+
+async function getUserFriendsByUsername(username) {
+    return await User.findOne(username).select('friendsList');
+}
+
+async function getUserInfoByUsername(username) {
+    return await User.findOne(username).select('-hash');
 }
 
 async function create(userParam) {

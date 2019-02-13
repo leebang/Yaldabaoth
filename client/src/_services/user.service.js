@@ -6,9 +6,11 @@ export const userService = {
     logout,
     register,
     getAllUser,
-    getAllGamesById,
-    getAllFriendsById,
-    getById,
+    getUserInfoByUsername,
+    getUserGamesByUsername,
+    getUserFriendsByUsername,
+    getUserInvitationsByUsername,
+    getUserHashById,
     update,
     delete: _delete
 };
@@ -20,7 +22,7 @@ function login(username, password) {
         body: JSON.stringify({ username, password })
     };
 
-    return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
+    return fetch(`${config.apiUrl}/UserApi/authenticate`, requestOptions)
         .then(handleResponse)
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -35,40 +37,58 @@ function logout() {
     localStorage.removeItem('user');
 }
 
+function getUserInvitationsByUsername(username) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    return fetch(`${config.apiUrl}/UserApi/${username}/invitations`, requestOptions.then(handleResponse));
+}
+
+function getUserHashById(id) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    return fetch(`${config.apiUrl}/UserApi/${id}/hash`, requestOptions).then(handleResponse);
+}
+
 function getAllUser() {
     const requestOptions = {
         method: 'GET',
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/users/allusers`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/UserApi/users`, requestOptions).then(handleResponse);
 }
 
-function getById(id) {
+function getUserInfoByUsername(username) {
     const requestOptions = {
         method: 'GET',
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/UserApi/${username}/info`, requestOptions).then(handleResponse);
 }
 
-function getAllGamesById(id) {
+function getUserGamesByUsername(username) {
     const requestOptions = {
         method: 'GET',
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/users/${id}/allgames`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/UserApi/${username}/games`, requestOptions).then(handleResponse);
 }
 
-function getAllFriendsById(id) {
+function getUserFriendsByUsername(username) {
     const requestOptions = {
         method: 'GET',
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/users/${id}/allfriends`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/UserApi/${username}/friends`, requestOptions).then(handleResponse);
 }
 
 function register(user) {
@@ -78,7 +98,7 @@ function register(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`${config.apiUrl}/users/register`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/UserApi/register`, requestOptions).then(handleResponse);
 }
 
 function update(user) {
@@ -89,7 +109,7 @@ function update(user) {
     };
     const token = JSON.parse(localStorage.getItem('user')).token;
 
-    return fetch(`${config.apiUrl}/users/${user._id}`, requestOptions)
+    return fetch(`${config.apiUrl}/UserApi/${user._id}`, requestOptions)
     .then(handleResponse)   
         .then(new_user => {
             new_user = {...new_user, token};
@@ -107,7 +127,7 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/UserApi/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
